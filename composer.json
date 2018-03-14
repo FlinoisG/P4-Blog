@@ -1,0 +1,10 @@
+{
+    "name": "salut/p4_blog",
+    "authors": [
+        {
+            "name": "FlinoisG",
+            "email": "flinois.gauthier@gmail.com"
+        }
+    ],
+    "require": {}
+}
