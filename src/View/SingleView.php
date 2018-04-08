@@ -30,13 +30,13 @@ ob_start();
         <div class="comment box<?= $highlight ?>" id="<?= $comment->getId() ?>">
         <p class="comment-username"> <?= $comment->getUsername() ?> <span class="comment-date"><?= $comment->getDate() ?></span></p>
         <p class="comment-content"> <?= $comment->getContent() ?> </p>
-        <a class="comment-btn btn btn-outline-danger" href="/commit/P4_Blog/public/?p=post.single&params=<?= $post->getId() ?>&flag=<?= $comment->getId() ?>">Signaler</a>
+        <a class="comment-btn btn btn-outline-danger" href="/public/?p=post.single&params=<?= $post->getId() ?>&flag=<?= $comment->getId() ?>">Signaler</a>
     </div>
     <?php
     }
     ?>
     <div class="comment box comment-editor">
-        <form action="/commit/P4_Blog/public/?p=post.comment_submit&params=<?= $post->getId() ?>&comment_submit=true" method="post">
+        <form action="/public/?p=post.comment_submit&params=<?= $post->getId() ?>&comment_submit=true" method="post">
             Pseudo : 
             <input class="editor-username" type="text" maxlength="20" name="comment-username">
             <br><br>

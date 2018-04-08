@@ -6,7 +6,7 @@ ob_start();
 ?>
 <div class="col-lg-12">
 
-    <form action="/commit/P4_Blog/public/?p=admin.post&login=true" method="post">
+    <form action="/public/?p=admin.post&login=true" method="post">
         <div class="form-group">
             <label for="loginUsername">Nom du compte</label>
             <input class="form-control login-form" type="text" id="loginUsername" name="username" placeholder="Nom du compte">

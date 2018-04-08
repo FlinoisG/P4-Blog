@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Database\mysqlQuery;
 use App\Entity\Post;
 use App\Controller\DefaultController;
+use App\Repository\CommentRepository;
 use PDO;
 
 class PostRepository {

@@ -14,17 +14,18 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
-        <link rel="stylesheet" type="text/css" href="css/base.css">
+        <link href="CSS/base.css" rel="stylesheet">
+        <?= $header ?>
     </head>
 
     <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/commit/P4_Blog/public/?p=post.index"><?= $title ?></a>
+        <a class="navbar-brand" href="/public/?p=post.index"><?= $title ?></a>
         <?php
         
         if (isset($_SESSION['auth'])){
-            echo '<a class="btn btn-outline-danger btn-logout" href="/commit/P4_Blog/public/?p=post.index&logout=true">Déconnextion</a>';
+            echo '<a class="btn btn-outline-danger btn-logout" href="/public/?p=post.index&logout=true">Déconnextion</a>';
         }
         ?>
     </nav>

@@ -60,7 +60,7 @@ class PostController extends DefaultController{
         } else {
 
         }
-        header('Location: /commit/P4_Blog/public/?p=post.single&params='.$_GET['params']);
+        header('Location: /public/?p=post.single&params='.$_GET['params']);
     }
 
     

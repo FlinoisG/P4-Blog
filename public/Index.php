@@ -4,6 +4,16 @@ require_once "../vendor/autoload.php";
 
 use App\Controller\PostController;
 use App\Controller\DefaultController;
+use App\Repository\PostRepository;
+
+if(!isset($_SESSION)) { 
+    session_start(); 
+} 
+
+if(isset($_GET['logout'])){
+    session_destroy();
+    header("Refresh:0; url=/public/?p=post.index");
+}
 
 if(isset($_GET['p'])){
     $routeTemp = explode('.', $_GET['p']);
