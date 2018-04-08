@@ -4,8 +4,6 @@ require_once "vendor/autoload.php";
 
 use App\Controller\PostController;
 use App\Controller\DefaultController;
-use App\Repository\PostRepository;
-
 
 if(isset($_GET['p'])){
     $routeTemp = explode('.', $_GET['p']);
@@ -28,19 +26,15 @@ $params = [
     "get" => $getParams,
     "post" => $postParams
 ];
-
 $controller = "\\App\\Controller\\" . ucfirst($routeTemp['controller']) . "Controller";
 if (class_exists($controller, true)){
     $controller = new $controller();
     if (in_array($routeTemp["action"], get_class_methods($controller))){
         call_user_func_array([$controller, $routeTemp["action"]], $params);
     } else {
-       
-        $content = 'Erreur 404';
-        require('base.php');
+        $controller->error('404');
     }
 } else {
-    $content = 'Erreur 500';
-    require('base.php');
-    
+    $controller = new DefaultController();
+    $controller->error('500');
 }

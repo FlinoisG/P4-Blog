@@ -20,7 +20,7 @@
     <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/public/?p=post.index">Blog</a>
+        <a class="navbar-brand" href="/public/?p=post.index"><?= $title ?></a>
         <?php
         
         if (isset($_SESSION['auth'])){
