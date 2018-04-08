@@ -7,14 +7,14 @@ ob_start();
 if (sizeof($PostRepository->getPosts()) > 0){
     foreach ($PostRepository->getPosts() as $post) {
         if (strlen($post->getContent()) > 500){
-            $content = substr(strip_tags($post->getContent()), 0, 500) . '... <a href="/public/?p=post.single&params=' . $post->getId() . '">lire la suite</a>' ;
+            $content = substr(strip_tags($post->getContent()), 0, 500) . '... <a href="/commit/P4_Blog/public/?p=post.single&params=' . $post->getId() . '">lire la suite</a>' ;
         } else {
             $content = strip_tags($post->getContent());
         }
         ?> 
         <div class="box post" style="text-align: left;">
         <div class="row">
-            <h2 class="post-titre titre col-lg-8"><a href="/public/?p=post.single&params=<?= $post->getId() ?>"> <?= $post->getTitle() ?></a>
+            <h2 class="post-titre titre col-lg-8"><a href="/commit/P4_Blog/public/?p=post.single&params=<?= $post->getId() ?>"> <?= $post->getTitle() ?></a>
             </h2>
             <h6 class="post-date col-lg-4"><?= $post->getDate(); ?></h6>
         </div>
