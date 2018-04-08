@@ -20,5 +20,6 @@ ob_start();
 </div>
 </div>
 <?php
+require('menu.php');
 $content = ob_get_clean();
 require('base.php'); ?>

@@ -34,7 +34,7 @@ if (sizeof($PostRepository->getPosts()) > 0){
 </div>
 
 <?php 
-
+require('menu.php');
 $content = ob_get_clean();
 
 require('base.php'); ?>
