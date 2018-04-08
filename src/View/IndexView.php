@@ -15,15 +15,6 @@ if (sizeof($PostRepository->getPosts()) > 0){
         <div class="box post" style="text-align: left;">
         <div class="row">
             <h2 class="post-titre titre col-lg-8"><a href="/public/?p=post.single&params=<?= $post->getId() ?>"> <?= $post->getTitle() ?></a>
-                <p class="index-commentaires">Commentaires: <?php
-                $coms = 0;
-                foreach ($comments as $comment) {
-                    if ($comment->getArticleId() == $post->getId()){
-                        $coms++;
-                    }
-                }
-                echo $coms;
-                ?></p>
             </h2>
             <h6 class="post-date col-lg-4"><?= $post->getDate(); ?></h6>
         </div>
@@ -43,7 +34,6 @@ if (sizeof($PostRepository->getPosts()) > 0){
 </div>
 
 <?php 
-require('menu.php');
 
 $content = ob_get_clean();
 
