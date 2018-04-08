@@ -6,6 +6,7 @@ ob_start();
 <div class="col-lg-12">
     <h1>Administration</h1>
     <p>Articles</p>
+    <a class="btn btn-primary btn-top-editor" href="/public/?p=admin.posteditor">Créer un nouvel article</a>
 </div>
 
 <table class="table table-sm table-striped table-dark table-bordered table-hover">
