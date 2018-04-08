@@ -1,0 +1,37 @@
+body {
+    padding-top: 55.6px;
+    font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+    color: white;
+    background-image: url('../img/background.png');
+    background-color: #1F1F1F;
+    text-align: center
+}
+
+.container {
+    padding: 3rem 1.5rem;
+    display: inline-block
+}
+
+.bg-dark {
+    text-align: center;
+    text-shadow: 0 0 4px #aaa;
+    background: linear-gradient(#6967ef, #3230bc);
+    box-shadow: 0px 0px 35px black;
+}
+
+strong, h1, a, .titre {
+    color: #4D4BD5
+}
+
+a:hover {
+    color: #3230bc;
+    text-decoration: none;
+}
+
+.box {
+    position: relative; 
+    background-color: #1F1F1F;
+    border: 2px solid  #333;
+    border-radius: 5px;
+    box-shadow: 1px 0px 11px #0e0e0e
+}
