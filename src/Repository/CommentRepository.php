@@ -9,10 +9,24 @@ use App\Controller\DefaultController;
 
 use PDO;
 
+/**
+ * Store comments from the database and manage them
+ */
 class CommentRepository {
 
+    /**
+     * Stores comments from database
+     *
+     * @var array
+     */
     private $comments = [];
     
+    /**
+     * Get comments from database and store them in $comments as Comment objects
+     * as an array
+     *
+     * @return void
+     */
     public function storeComments($id = NULL){
         $this->comments = [];
         $mysqlQuery = new mysqlQuery();
@@ -21,7 +35,7 @@ class CommentRepository {
         } else {
             $arg = ' WHERE article_id=' . $id;
         }
-        $query = 'SELECT * FROM commentaires' . $arg;
+        $query = 'SELECT * FROM commentaires' . $arg . ' ORDER BY date';
         $commentArray = $mysqlQuery->sqlQuery($query);
         for ($i=0; $i < sizeof($commentArray); $i++){
             $this->comments[$i] = new Comment(

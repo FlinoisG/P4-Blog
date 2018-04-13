@@ -1,0 +1,314 @@
+body {
+    padding-top: 55.6px;
+    font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+    color: white;
+    background-image: url('../img/background.png');
+    background-color: #1F1F1F;
+    text-align: center
+}
+
+.container {
+    padding: 3rem 1.5rem;
+    display: inline-block
+}
+
+.bg-dark {
+    text-align: center;
+    text-shadow: 0 0 4px #aaa;
+    background: linear-gradient(#6967ef, #3230bc);
+    box-shadow: 0px 0px 35px black;
+}
+
+strong, h1, a, .titre {
+    color: #4D4BD5
+}
+
+a:hover {
+    color: #3230bc;
+    text-decoration: none;
+}
+
+.box {
+    position: relative; 
+    background-color: #1F1F1F;
+    border: 2px solid  #333;
+    border-radius: 5px;
+    box-shadow: 1px 0px 11px #0e0e0e
+}
+
+.post{
+    padding: 15px;
+    margin-bottom: 30px;
+    
+}
+
+.postContent-index{
+    font-size: 15px;
+}
+
+.postContent-single{
+    font-size: 15px;
+    padding-bottom: 30px;
+    text-align: left;
+    color: red;
+}
+
+.post-titre{
+    text-align: left;
+    text-decoration: none;
+}
+
+.post-date{
+    
+    font-size: 12px;
+    color: #aaa;
+    text-align: right;
+}
+
+.index-commentaires{
+    font-size: 12px;
+    color: #aaa;
+    margin: 0px
+}
+
+.comment-header{
+    text-align: left;
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 60px
+}
+
+.comment{
+    margin-bottom: 10px;
+    padding: 7px;
+    border: 1px solid #333;
+    box-shadow: 1px 0px 10px #00000046;
+    text-align: left;
+    font-family: 'Roboto';
+    
+}
+
+.comment-username{
+    font-size: 15px;
+    color: rgb(177, 177, 177);
+    margin-bottom: 0px
+}
+
+.comment-date{
+    font-size: 10px;
+    padding-left: 5px;
+    color: #666;
+}
+
+.comment-content{
+    font-size: 12px;
+    margin-bottom: 0px;
+    overflow-wrap: break-word;
+    padding-right: 80px;
+    color: rgb(240, 240, 240);
+}
+
+.comment-btn{
+    position: absolute;
+    color: #333; 
+    border-color: #333;
+    right: 7px;
+    top: 7px;
+    font-size: 12px;
+}
+
+.flag-window{
+    z-index: 100;
+    position: fixed;
+    left: calc(50% - 153.62px);
+    top: 53.6px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-color: red;
+    color: red;
+    padding: 15px;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade {
+    0%   {
+        opacity: 1;
+        top: 53.6px;
+    }
+    100% {
+        opacity: 0;
+        top: -2px;
+    }
+}
+
+.comment-editor{
+    font-size: 12px;
+}
+
+.editor-username{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: white;
+}
+.editor-content{
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px solid #333;
+    border-radius: 4px;
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+    width: 100%;
+    color: white;
+    margin-top: 5px
+}
+.editor-submit{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    margin-top: 15px;
+    margin-right: 7px;
+}
+
+.menu{
+    margin-bottom: 30px;
+}
+
+.admin-link{
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - 54.045px)
+}
+
+tr{
+    overflow-wrap: break-word;
+}
+
+td{
+    overflow-wrap: break-word;
+}
+
+.btn-top-editor{
+    position: absolute;
+    left: 0%;
+    top: 58px;
+    border-bottom-left-radius: 0%;
+    border-bottom-RIGHT-radius: 0%;
+}
+
+.flag-alert{
+    float: left;
+    color: red;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.btn-group{
+    float: right;
+}
+
+.btn-primary{
+    background-color: #4D4BD5;
+    border-color: #4D4BD5;
+}
+
+.btn-primary:hover{
+    background-color: rgb(64, 62, 202);
+    border-color: rgb(64, 62, 202);
+}
+
+.btn-outline-primary{
+    border-color: #4D4BD5;
+    color: #4D4BD5;
+}
+
+.btn-outline-primary:hover{
+    background-color: #4D4BD5;
+    border-color: #4D4BD5;
+}
+
+.btn-logout{
+    position: absolute;
+    right: 15px;
+    text-shadow: 0 0 0 #aaa;
+}
+
+
+.login-form{
+    max-width: 230px;
+    margin: auto;
+}
+
+.box-highlight{
+    background-color: rgb(43, 40, 40);
+    border-color: rgb(110, 85, 85);
+}
+
+.box-highlight a{
+    color: rgb(110, 85, 85); 
+    border-color: rgb(110, 85, 85);
+}
+
+.btn-admin{
+    font-size: 12px;
+}
+
+.btn-admin-com{
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.editor-admin{
+    width: 100%;
+    font-size: 30px;
+}
+
+.post-editor{
+    margin-left: calc(50% - 435px);
+}
+
+#PostEditorSubmit{
+    margin-top: 30px;
+    margin-right: 150px;
+    width: 175px;
+}
+
+#PostEditorCancel{
+    margin-top: 30px;
+    width: 175px;
+}
+
+.Shadow{
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.CommentWindowWin{
+    position: fixed;
+    width: 500px;
+    left: calc(50% - 250px);
+    top: calc(50% - 100px);
+}
+
+.signTitle{
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.BtnAccept{
+    margin-right: 60px;
+    margin-bottom: 30px;
+    width: 90px;
+    color: white;
+}
+
+.BtnCancel{
+    width: 90px;
+    margin-bottom: 30px;
+}

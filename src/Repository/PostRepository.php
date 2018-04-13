@@ -8,10 +8,23 @@ use App\Controller\DefaultController;
 use App\Repository\CommentRepository;
 use PDO;
 
+/**
+ * Store posts from the database and manage them
+ */
 class PostRepository {
 
+    /**
+     * Stores posts from database
+     *
+     * @var array
+     */
     private $posts = [];
     
+    /**
+     * Get posts from database and store them in $post as Post objects
+     *
+     * @return void
+     */
     public function storePosts(){
         $this->posts = [];
         $mysqlQuery = new mysqlQuery();
@@ -26,6 +39,12 @@ class PostRepository {
         }
     }
 
+    /**
+     * Returns specified id's post
+     *
+     * @param int $id Return id's post. If not specified, return all posts
+     * @return object
+     */
     public function getPosts($id = NULL){
         if ($this->posts == []){
             $this->storePosts();
@@ -42,6 +61,12 @@ class PostRepository {
         }
     }
 
+    /**
+     * Delete the specified id's post in the database
+     *
+     * @param int $id
+     * @return void
+     */
     public function deletePost($id){
         $mysqlQuery = new mysqlQuery();
         $CommentRepository = new CommentRepository();
@@ -51,6 +76,12 @@ class PostRepository {
         $mysqlQuery->sqlQuery('DELETE FROM articles WHERE id=' . $id);
     }
 
+    /**
+     * Submit the provided post into the database
+     *
+     * @param object $post
+     * @return void
+     */
     public function submitPost($post){
         $title = str_replace("'", "\'", $post->getTitle());
         $content = str_replace("'", "\'", $post->getContent());
@@ -60,7 +91,13 @@ class PostRepository {
             \'' . $content . '\'
         )');
     }
-
+    /**
+     * Update a post in the databse at specified id
+     *
+     * @param object $post
+     * @param int $id
+     * @return void
+     */
     public function updatePost($post, $id){
         $title = str_replace("'", "\'", $post->getTitle());
         $content = str_replace("'", "\'", $post->getContent());

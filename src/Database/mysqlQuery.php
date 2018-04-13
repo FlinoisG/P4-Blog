@@ -6,13 +6,23 @@ use App\Entity\Post;
 use App\Controller\DefaultController;
 use PDO;
 
+/**
+ * used for comunication with the database
+ */
 class mysqlQuery {
 
+    /**
+     * Undocumented variable
+     * @var string
+     */
     private $host;
     private $dbname;
     private $username;
     private $password;
 
+    /**
+     * Stores database 
+     */
     public function __construct(){
         $configs = include('mysqlConfig.php');
         $this->host = $configs['host'];
@@ -21,6 +31,12 @@ class mysqlQuery {
         $this->password = $configs['password'];
     }
 
+    /**
+     * Take a sql request and return the result
+     *
+     * @param string $query
+     * @return mixed
+     */
     public function sqlQuery($query){
         try
         {
@@ -30,7 +46,6 @@ class mysqlQuery {
         {
             die('Erreur : ' . $e->getMessage());
         }
-        //var_dump($query);
         $query = $bdd->query($query);        
         if(!$query){
             $DefaultController = new DefaultController();

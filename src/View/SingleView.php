@@ -11,7 +11,7 @@ ob_start();
 
 ?> 
 <div class="col-lg-10" style="text-align: left;">
-<div class="box post" style="margin-bottom: 0px;">
+<div class="box post">
     <div class="row">
         <h2 class="post-titre titre col-lg-8"><?= $post->getTitle() ?></h2>
         <h6 class="post-date col-lg-4"><?= $post->getDate(); ?></h6>
@@ -37,7 +37,7 @@ ob_start();
     ?>
     <div class="comment box comment-editor">
         <form action="/public/?p=post.comment_submit&params=<?= $post->getId() ?>&comment_submit=true" method="post">
-            Pseudo : 
+            Nom d'utilisateur : 
             <input class="editor-username" type="text" maxlength="20" name="comment-username">
             <br><br>
             Message :<br>

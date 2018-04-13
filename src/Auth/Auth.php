@@ -5,12 +5,21 @@ namespace APP\Auth;
 use App\Controller\DefaultController;
 use App\Database\mysqlQuery;
 
+/**
+ * Auth class for authentification related functions
+ */
 class Auth {
 
+    /**
+     * Create session if username and password matches in the database
+     *
+     * @param string $username
+     * @param string $password
+     * @return void
+     */
     public function login($username, $password){
         $mysqlQuery = new mysqlQuery();
-        $username = "'".$username."'";
-        $user = $mysqlQuery->sqlQuery('SELECT * FROM users WHERE username=' . $username);
+        $user = $mysqlQuery->sqlQuery("SELECT * FROM users WHERE username='".$username."'");
         if($user != [] && $password == $user['0']['password']){
             if(!isset($_SESSION)){
                 session_start();
@@ -22,11 +31,5 @@ class Auth {
             die($DefaultController->error(403));
         }
     }
-
-    public function logged(){
-        return $_SESSION['auth'];
-    }
-
-    
 
 }

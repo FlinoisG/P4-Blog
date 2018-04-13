@@ -40,7 +40,5 @@ class ConfirmWindow {
     public function getAction(){
         return $this->action;
     }
-
     
-
 }

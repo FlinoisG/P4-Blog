@@ -54,7 +54,7 @@ ob_start();
                     document.addEventListener('click', function (event) {
                         if (event.target.id == 'SupprBtn<?= $post->getId() ?>'){
                             console.log('<?= $post->getId() ?>');
-                            CommentWindow.init('Confirmer la suppression de l\'article', '/public/?p=admin.post&delete=<?= $post->getId() ?>', '<?= $post->getId() ?>');
+                            CommentWindow.init('Confirmer la suppression de l\'article', '/public/?p=admin.post&delete=<?= $post->getId() ?>');
                             //
                         }
                     });
@@ -67,7 +67,7 @@ ob_start();
         ?>
     </tbody>
 </table>
-<script src="/src/View/Admin/CommentWindow.js"></script>
+<script src="assets/js/ConfirmWin.js">
 <?php 
 $content = ob_get_clean(); ?>
 <?php require(dirname(__DIR__).'/base.php'); ?>

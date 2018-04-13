@@ -51,8 +51,7 @@ ob_start();
                     document.addEventListener('click', function (event) {
                         if (event.target.id == 'SupprBtn<?= $comment->getId() ?>'){
                             console.log('<?= $comment->getId() ?>');
-                            CommentWindow.init('Confirmer la suppression du commentaire', '/public/?p=admin.comments&id=<?= $comment->getArticleId() ?>&delete=<?= $comment->getId() ?>', '<?= $comment->getId() ?>');
-                            //
+                            CommentWindow.init('Confirmer la suppression du commentaire', '/public/?p=admin.comments&id=<?= $comment->getArticleId() ?>&delete=<?= $comment->getId() ?>');
                         }
                     });
                 </script>
@@ -64,7 +63,7 @@ ob_start();
         ?>
     </tbody>
 </table>
-<script src="/src/View/Admin/CommentWindow.js"></script>
+<script src="assets/js/ConfirmWin.js"></script>
 <?php 
 $content = ob_get_clean(); ?>
 <?php require(dirname(__DIR__).'/base.php'); ?>

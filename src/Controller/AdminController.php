@@ -7,9 +7,18 @@ use App\Repository\CommentRepository;
 use App\Auth\Auth;
 use App\Entity\Post;
 use App\Entity\NotifWindow;
+use App\Service\CommentService;
 
+/**
+ * Post controller that will require requested back-office views
+ */
 class AdminController extends DefaultController{
 
+    /**
+     * Url : /public/?p=admin.post
+     *
+     * @return void
+     */
     public function post(){
         if (isset($_GET['login'])){
             $Auth = new Auth();
@@ -28,6 +37,11 @@ class AdminController extends DefaultController{
         require('../src/View/Admin/PostView.php');
     }
 
+    /**
+     * Url : /public/?p=admin.posteditor
+     *
+     * @return void
+     */
     public function posteditor(){
         if (!$_SESSION){
             header("Location: /public/?p=admin.connection");
@@ -42,6 +56,12 @@ class AdminController extends DefaultController{
         require('../src/View/Admin/PostEditorView.php');
     }
 
+    /**
+     * Url : /public/?p=admin.comments&id=*
+     *
+     * @param int $params id of the post to comment
+     * @return void
+     */
     public function comments($params){
         if (!$_SESSION){
             header("Location: /public/?p=admin.connection");
@@ -54,8 +74,8 @@ class AdminController extends DefaultController{
             $CommentRepository->deleteComment($_GET['delete']);
         }
         if (isset($_GET['deleteFlag'])){
-            $PostController = new PostController();
-            $PostController->removeFlag($_GET['deleteFlag']);
+            $CommentService = new CommentService;
+            $CommentService->removeFlag($_GET['deleteFlag']);
         }
         if (!isset($_GET['id'])){
             die($this->error('404'));
@@ -66,10 +86,21 @@ class AdminController extends DefaultController{
         require('../src/View/Admin/CommentView.php');
     }
 
+    /**
+     * Url : /public/?p=admin.connection
+     *
+     * @return void
+     */
     public function connection(){
         require('../src/View/ConnectionView.php');
     }
 
+    /**
+     * Url : /public/?p=admin.post_submit
+     * send the posted article to either edit or submit it in the database
+     *
+     * @param int $id if empty, will submit a new post. otherwise, update post
+     */
     public function post_submit($id = null){
         if (!$_SESSION){
             header("Location: /public/?p=admin.connection");
@@ -82,12 +113,8 @@ class AdminController extends DefaultController{
         } elseif (strlen($_POST['post-content']) <= 2){
             $NotifWindow = new NotifWindow('red', 'Article non envoyé, contenu trop court.');
         } else {
-            //$titre = htmlspecialchars($_POST['post-title']);
             $titre = $_POST['post-title'];
-            //$titre = str_replace("'", "\'", $titre);
-            //$content = htmlspecialchars($_POST['post-content']);
             $content = $_POST['post-content'];
-            //$content = str_replace("'", "\'", $content);
             $postToSubmit = new Post(null, $titre, $content, null);
             $_POST = array();
             if ($id == null){

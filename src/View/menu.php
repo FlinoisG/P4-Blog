@@ -1,4 +1,4 @@
-<div class="col-lg-2 box">
+<div class="col-lg-2 box menu">
         <p>Menu</p>
         <p><a href="/public/?p=post.index">Accueil</a></p>
         <?php

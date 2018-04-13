@@ -21,24 +21,30 @@ if($post != null){
 ob_start(); 
 ?> 
 <div class="post-editor">
-<form action="<?= $editorAction ?>" method="post">
+<form id="editorForm" action="<?= $editorAction ?>" method="post">
     Titre : 
     <input class="editor-username editor-admin" type="text" maxlength="50" name="post-title" value="<?= $editorTitle ?>">
     <br><br>
     Message :<br>
     <textarea class="" name="post-content"><?= $editorContent ?></textarea>
-    <input id="PostEditorSubmit" class="btn btn-outline-primary" type="submit" value="Envoyer">
+    <a id="PostEditorSubmit" class="btn btn-outline-primary">Envoyer</a>
     <a id="PostEditorCancel" class="btn btn-outline-danger" >Annuler</a>
-</form> 
-</div>
-<script>
+    <script>
     document.addEventListener('click', function (event) {
         if (event.target.id == 'PostEditorCancel'){
-            CommentWindow.init('Êtes-vous sur de vouloir annuler cet article ?', '/public/?p=admin.post');
+            CommentWindow.init('Êtes-vous sur de vouloir quiter sans sauvegarder les modifications ?', '/public/?p=admin.post');
+        }
+    });
+    document.addEventListener('click', function (event) {
+        if (event.target.id == 'PostEditorSubmit'){
+            CommentWindow.init('Envoyer l\'article ?', '', true);
         }
     });
 </script>
-<script src="/src/View/Admin/CommentWindow.js"></script>
+</form> 
+</div>
+
+<script src="assets/js/ConfirmWin.js"></script>
 <?php 
 $content = ob_get_clean();
 
