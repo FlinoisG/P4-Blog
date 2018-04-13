@@ -23,6 +23,10 @@ strong, h1, a, .titre {
     color: #4D4BD5
 }
 
+#title{
+    font-size: 17px;
+}
+
 a:hover {
     color: #3230bc;
     text-decoration: none;
@@ -311,4 +315,25 @@ td{
 .BtnCancel{
     width: 90px;
     margin-bottom: 30px;
+}
+
+@media (max-width: 992px) {
+    .menu {
+        display: none;
+    }
+    .post-titre{
+        font-size: 25px;
+    }
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
 }

@@ -14,7 +14,7 @@ if (sizeof($PostRepository->getPosts()) > 0){
         ?> 
         <div class="box post" style="text-align: left;">
         <div class="row">
-            <h2 class="post-titre titre col-lg-8"><a href="/public/?p=post.single&params=<?= $post->getId() ?>"> <?= $post->getTitle() ?></a>
+            <h2 class="post-titre titre col-lg-9"><a href="/public/?p=post.single&params=<?= $post->getId() ?>"> <?= $post->getTitle() ?></a>
                 <p class="index-commentaires">Commentaires: <?php
                 $coms = 0;
                 foreach ($comments as $comment) {
@@ -25,7 +25,7 @@ if (sizeof($PostRepository->getPosts()) > 0){
                 echo $coms;
                 ?></p>
             </h2>
-            <h6 class="post-date col-lg-4"><?= $post->getDate(); ?></h6>
+            <h6 class="post-date col-lg-3"><?= $post->getDate(); ?></h6>
         </div>
         <p class="postContent-index"><?= $content ?></p>
         </div>
