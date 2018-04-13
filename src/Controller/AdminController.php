@@ -108,14 +108,18 @@ class AdminController extends DefaultController{
         }
         $PostRepository = new PostRepository();
         $CommentRepository = new CommentRepository();
+        $allowedTags='<p><strong><em><u><h1><h2><h3><h4><h5><h6><img>';
+        $allowedTags.='<li><ol><ul><span><div><br><ins><del>';
+        $sHeader = strip_tags(stripslashes($_POST['post-title']),$allowedTags);
+        $sContent = strip_tags(stripslashes($_POST['post-content']),$allowedTags);
         if (strlen($_POST['post-title']) <= 2){
             $NotifWindow = new NotifWindow('red', 'Article non envoyé, Titre trop court.');
         } elseif (strlen($_POST['post-content']) <= 2){
             $NotifWindow = new NotifWindow('red', 'Article non envoyé, contenu trop court.');
         } else {
-            $titre = $_POST['post-title'];
-            $content = $_POST['post-content'];
-            $postToSubmit = new Post(null, $titre, $content, null);
+            $titre = $sHeader;
+            $content = $sContent;
+            $postToSubmit = new Post(null, $titre, $content, date());
             $_POST = array();
             if ($id == null){
                 $PostRepository->submitPost($postToSubmit);

@@ -1,9 +1,11 @@
 <?php 
-
 $title = "Blog de Jean Forteroche - Editeur d'article";
 $header = '<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=ytdbv6007rzv009uec0hsu3v0b57g8mcs0o9l6ik6e4du5iy"></script>
 <script>
-    tinymce.init({ 
+    tinymce.init({
+        
+        mode: "exact",
+        elements : "elm1",
         selector:\'textarea\',
         width: 871,
         min_height: 500,
@@ -43,7 +45,6 @@ ob_start();
 </script>
 </form> 
 </div>
-
 <script src="assets/js/ConfirmWin.js"></script>
 <?php 
 $content = ob_get_clean();

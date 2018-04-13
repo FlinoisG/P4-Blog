@@ -1,5 +1,5 @@
 <?php 
-$title = 'Blog';
+$title = 'Blog de Jean Forteroche';
 $header = '';
 ob_start(); ?>
 <div class="col-lg-12">

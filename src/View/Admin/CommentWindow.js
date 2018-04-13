@@ -40,6 +40,5 @@ var CommentWindow = new CommentWindow();
 document.addEventListener('click', function (event) {
     if (event.target.id == 'BtnCancel'){
         CommentWindow.remove();
-        //
     }
 });

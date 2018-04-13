@@ -25,7 +25,7 @@
         <?php
         
         if (isset($_SESSION['auth'])){
-            echo '<a class="btn btn-outline-danger btn-logout" href="/public/?p=post.index&logout=true">Déconnextion</a>';
+            echo '<a class="btn btn-danger btn-logout" href="/public/?p=post.index&logout=true">Déconnextion</a>';
         }
         ?>
     </nav>
