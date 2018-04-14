@@ -15,7 +15,7 @@ use App\Service\CommentService;
 class PostController extends DefaultController{
 
     /**
-     * Url : /public/?p=post.index
+     * Url : ?p=post.index
      * provide every posts in one page
      *
      * @return void
@@ -28,7 +28,7 @@ class PostController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=post.single&params=$id
+     * Url : ?p=post.single&params=$id
      * provide the requested post and its comments
      *
      * @param int $id
@@ -72,7 +72,7 @@ class PostController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=post.comment_submit&params=id&comment_submit=true
+     * Url : ?p=post.comment_submit&params=id&comment_submit=true
      * submits the comment and refresh the page
      *
      * @return void
@@ -92,9 +92,9 @@ class PostController extends DefaultController{
                 $CommentRepository->submitComment($commentToSubmit);
             }
         } else {
-
+            die($this->error('500'));
         }
-        header('Location: /public/?p=post.single&params='.$_GET['params'].'&notif='.$Notif);
+        header('Location: ?p=post.single&params='.$_GET['params'].'&notif='.$Notif.'#commentbox');
     }
 
 }

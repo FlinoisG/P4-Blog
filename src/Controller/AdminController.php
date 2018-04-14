@@ -15,7 +15,7 @@ use App\Service\CommentService;
 class AdminController extends DefaultController{
 
     /**
-     * Url : /public/?p=admin.post
+     * Url : ?p=admin.post
      *
      * @return void
      */
@@ -25,7 +25,7 @@ class AdminController extends DefaultController{
             $Auth->login($_POST['username'], $_POST['password']);
         }
         if (!$_SESSION){
-            header("Location: /public/?p=admin.connection");
+            header("Location: ?p=admin.connection");
             die();
         }
         $PostRepository = new PostRepository();
@@ -38,13 +38,13 @@ class AdminController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=admin.posteditor
+     * Url : ?p=admin.posteditor
      *
      * @return void
      */
     public function posteditor(){
         if (!$_SESSION){
-            header("Location: /public/?p=admin.connection");
+            header("Location: ?p=admin.connection");
             die();
         }
         if (isset($_GET['params'])){
@@ -57,14 +57,14 @@ class AdminController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=admin.comments&id=*
+     * Url : ?p=admin.comments&id=*
      *
      * @param int $params id of the post to comment
      * @return void
      */
     public function comments($params){
         if (!$_SESSION){
-            header("Location: /public/?p=admin.connection");
+            header("Location: ?p=admin.connection");
             die();
         }
         $PostRepository = new PostRepository();
@@ -87,7 +87,7 @@ class AdminController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=admin.connection
+     * Url : ?p=admin.connection
      *
      * @return void
      */
@@ -96,14 +96,14 @@ class AdminController extends DefaultController{
     }
 
     /**
-     * Url : /public/?p=admin.post_submit
+     * Url : ?p=admin.post_submit
      * send the posted article to either edit or submit it in the database
      *
      * @param int $id if empty, will submit a new post. otherwise, update post
      */
     public function post_submit($id = null){
         if (!$_SESSION){
-            header("Location: /public/?p=admin.connection");
+            header("Location: ?p=admin.connection");
             die();
         }
         $PostRepository = new PostRepository();
@@ -119,7 +119,7 @@ class AdminController extends DefaultController{
         } else {
             $titre = $sHeader;
             $content = $sContent;
-            $postToSubmit = new Post(null, $titre, $content, date());
+            $postToSubmit = new Post(null, $titre, $content, date("Y-m-d H:i:s"));
             $_POST = array();
             if ($id == null){
                 $PostRepository->submitPost($postToSubmit);

@@ -14,15 +14,15 @@ $header = '<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y
 if($post != null){
     $editorTitle = $post->getTitle();
     $editorContent = $post->getContent();
-    $editorAction = '/public/?p=admin.post_submit&params=' . $post->getId();
+    $editorAction = '?p=admin.post_submit&params=' . $post->getId();
 } else {
     $editorTitle = '';
     $editorContent = '';
-    $editorAction = '/public/?p=admin.post_submit';
+    $editorAction = '?p=admin.post_submit';
 }
 ob_start(); 
 ?> 
-<div class="post-editor">
+<div class="post-editor box">
 <form id="editorForm" action="<?= $editorAction ?>" method="post">
     Titre : 
     <input class="editor-username editor-admin" type="text" maxlength="50" name="post-title" value="<?= $editorTitle ?>">
@@ -34,7 +34,7 @@ ob_start();
     <script>
     document.addEventListener('click', function (event) {
         if (event.target.id == 'PostEditorCancel'){
-            CommentWindow.init('Êtes-vous sur de vouloir quiter sans sauvegarder les modifications ?', '/public/?p=admin.post');
+            CommentWindow.init('Êtes-vous sur de vouloir quiter sans sauvegarder les modifications ?', '?p=admin.post');
         }
     });
     document.addEventListener('click', function (event) {

@@ -12,7 +12,7 @@ if(!isset($_SESSION)) {
 
 if(isset($_GET['logout'])){
     session_destroy();
-    header("Refresh:0; url=/public/?p=post.index");
+    header("Refresh:0; url=?p=post.index");
 }
 
 if(isset($_GET['p'])){

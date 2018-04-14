@@ -6,13 +6,12 @@ ob_start();
 <div class="col-lg-12">
     <h1>Administration</h1>
     <p>Articles</p>
-    <a class="btn btn-primary btn-top-editor" href="/public/?p=admin.posteditor">Créer un nouvel article</a>
+    <a class="btn btn-primary btn-top-editor" href="?p=admin.posteditor">Créer un nouvel article</a>
 </div>
 
 <table class="table table-sm table-striped table-dark table-bordered table-hover">
     <thead>
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Titre</th>
             <th scope="col">Date</th>
             <th scope="col">Actions</th>
@@ -34,15 +33,14 @@ ob_start();
                     $flaggedComs = '';
                 }
                 echo '<tr>';
-                    echo '<td>' . $post->getId() . '</td>';
-                    echo '<td><a href="/public/?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>';
+                    echo '<td><a href="?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>';
                     echo '<td>' . $post->getDate() . '</td>';
                     ?>
                     <td>
                         <?= $flaggedComs ?> 
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-primary btn-admin" href="/public/?p=admin.comments&id=<?= $post->getId() ?>">Gérer commentaires</a>
-                            <a class="btn btn-primary btn-admin" href="/public/?p=admin.posteditor&params=<?= $post->getId() ?>">Éditer</a>
+                            <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=<?= $post->getId() ?>">Gérer commentaires</a>
+                            <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=<?= $post->getId() ?>">Éditer</a>
                             <a id="SupprBtn<?= $post->getId() ?>" class="btn btn-danger btn-admin">Supprimer</a>
                         </div>
                     </td>
@@ -54,7 +52,7 @@ ob_start();
                     document.addEventListener('click', function (event) {
                         if (event.target.id == 'SupprBtn<?= $post->getId() ?>'){
                             console.log('<?= $post->getId() ?>');
-                            CommentWindow.init('Confirmer la suppression de l\'article', '/public/?p=admin.post&delete=<?= $post->getId() ?>');
+                            CommentWindow.init('Confirmer la suppression de l\'article', '?p=admin.post&delete=<?= $post->getId() ?>');
                             //
                         }
                     });

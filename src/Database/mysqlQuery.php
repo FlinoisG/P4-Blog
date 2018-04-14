@@ -46,7 +46,7 @@ class mysqlQuery {
         {
             die('Erreur : ' . $e->getMessage());
         }
-        $query = $bdd->query($query);        
+        $query = $bdd->query($query);    
         if(!$query){
             $DefaultController = new DefaultController();
             die($DefaultController->error('500'));

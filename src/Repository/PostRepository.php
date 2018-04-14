@@ -86,9 +86,10 @@ class PostRepository {
         $title = str_replace("'", "\'", $post->getTitle());
         $content = str_replace("'", "\'", $post->getContent());
         $mysqlQuery = new mysqlQuery();
-        $mysqlQuery->sqlQuery('INSERT INTO articles(title, content) VALUES(
+        $mysqlQuery->sqlQuery('INSERT INTO articles(title, content, date) VALUES(
             \'' . htmlspecialchars($title) . '\',
-            \'' . $content . '\'
+            \'' . $content . '\',
+            \'' . date("Y-m-d H:i:s") . '\'
         )');
     }
     /**

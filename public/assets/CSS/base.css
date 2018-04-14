@@ -154,6 +154,7 @@ a:hover {
     border: 1px solid #333;
     border-radius: 4px;
     color: white;
+    margin-left:5px;
 }
 .editor-content{
     background-color: rgba(0, 0, 0, 0.1);
@@ -183,7 +184,8 @@ a:hover {
 .admin-link{
     position: absolute;
     bottom: 0px;
-    left: calc(50% - 54.045px)
+    left: calc(50% - 54.045px);
+    margin-top: 15px;
 }
 
 tr{
@@ -270,7 +272,8 @@ td{
 }
 
 .post-editor{
-    margin-left: calc(50% - 435px);
+    margin-left: calc(50% - 495px);
+    padding: 30px;
 }
 
 #PostEditorSubmit{
@@ -317,18 +320,32 @@ td{
     margin-bottom: 30px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1000px) {
     .menu {
         display: none;
     }
     .post-titre{
         font-size: 25px;
     }
+    #commentbox form, .comment-username{
+        display: flex;
+        flex-direction: column;
+    }
+    .comment-date{
+        padding: 0px;
+    }
+    .editor-username{
+        width: 50%;
+        margin-left:0px;
+        margin-top:5px;
+    }
 }
+
 html {
     position: relative;
     min-height: 100%;
 }
+
 footer {
     position: absolute;
     left: 0;
@@ -336,4 +353,11 @@ footer {
     height: 20px;
     width: 100%;
     overflow: hidden;
+}
+
+.menu-mark {
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    border: 1px solid #222;
+    padding: 5px;
 }

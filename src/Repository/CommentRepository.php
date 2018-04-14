@@ -57,10 +57,11 @@ class CommentRepository {
     public function submitComment($comment){
         $content = str_replace("'", "''", $comment->getContent());
         $mysqlQuery = new mysqlQuery();
-        $mysqlQuery->sqlQuery('INSERT INTO commentaires(pseudo, content, article_id) VALUES(
+        $mysqlQuery->sqlQuery('INSERT INTO commentaires(pseudo, content, article_id, date) VALUES(
             \'' . htmlspecialchars($comment->getUsername()) . '\',
             \'' . htmlspecialchars($content) . '\',
-            \'' . htmlspecialchars($comment->getArticleId()) . '\'
+            \'' . htmlspecialchars($comment->getArticleId()) . '\',
+            \'' . date("Y-m-d H:i:s") . '\'
         )');
     }
 

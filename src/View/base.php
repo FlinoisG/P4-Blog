@@ -21,11 +21,11 @@
     <body>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a id="title" class="navbar-brand" href="/public/?p=post.index"><?= $title ?></a>
+        <a id="title" class="navbar-brand" href="?p=post.index"><?= $title ?></a>
         <?php
         
         if (isset($_SESSION['auth'])){
-            echo '<a class="btn btn-danger btn-logout" href="/public/?p=post.index&logout=true">Déconnextion</a>';
+            echo '<a class="btn btn-danger btn-logout" href="?p=post.index&logout=true">Déconnextion</a>';
         }
         ?>
     </nav>

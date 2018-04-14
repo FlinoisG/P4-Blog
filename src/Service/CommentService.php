@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Database\mysqlQuery;
+
 /**
  * Various function related to comments
  */
