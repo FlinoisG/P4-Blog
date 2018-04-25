@@ -12,9 +12,9 @@ ob_start();
 <table class="table table-sm table-striped table-dark table-bordered table-hover">
     <thead>
         <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Date</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="hidden-sm-down">Titre</th>
+            <th scope="col" class="hidden-md-down">Date</th>
+            <th scope="col" class="hidden-sm-down">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -33,16 +33,14 @@ ob_start();
                     $flaggedComs = '';
                 }
                 echo '<tr>';
-                    echo '<td><a href="?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>';
-                    echo '<td>' . $post->getDate() . '</td>';
+                    echo '<td><a class="adminPostTitle" href="?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>';
+                    echo '<td class="hidden-md-down">' . $post->getDate() . '</td>';
                     ?>
                     <td>
                         <?= $flaggedComs ?> 
-                        <div class="btn-group" role="group" aria-label="Basic example">
                             <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=<?= $post->getId() ?>">Gérer commentaires</a>
                             <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=<?= $post->getId() ?>">Éditer</a>
                             <a id="SupprBtn<?= $post->getId() ?>" class="btn btn-danger btn-admin">Supprimer</a>
-                        </div>
                     </td>
                     <?php
                 echo '</tr>';
@@ -51,9 +49,7 @@ ob_start();
                     var val = "<?= $post->getId() ?>";
                     document.addEventListener('click', function (event) {
                         if (event.target.id == 'SupprBtn<?= $post->getId() ?>'){
-                            console.log('<?= $post->getId() ?>');
                             CommentWindow.init('Confirmer la suppression de l\'article', '?p=admin.post&delete=<?= $post->getId() ?>');
-                            //
                         }
                     });
                 </script>
@@ -65,7 +61,7 @@ ob_start();
         ?>
     </tbody>
 </table>
-<script src="assets/js/ConfirmWin.js">
-<?php 
-$content = ob_get_clean(); ?>
-<?php require(dirname(__DIR__).'/base.php'); ?>
+<script src="assets/js/ConfirmWin.js"></script>
+
+<?php $content = ob_get_clean();
+require(dirname(__DIR__).'/base.php');

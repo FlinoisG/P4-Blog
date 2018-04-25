@@ -6,5 +6,7 @@ ob_start(); ?>
     <h1>Erreur 403</h1>
     <p>Accès refusé</p>
 </div>
-<?php $content = ob_get_clean();
-require(dirname(__DIR__).'../base.php'); ?>
+<?php 
+$content = ob_get_clean();
+$path = dirname(__DIR__).'/base.php';
+require($path);

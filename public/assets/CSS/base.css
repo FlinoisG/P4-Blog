@@ -4,8 +4,19 @@ body {
     color: white;
     background-image: url('../img/background.png');
     background-color: #1F1F1F;
-    text-align: center
+    text-align: center;
+    /*
+    --mainColor: rgb(116, 127, 226);
+    --mainColor-light: rgb(135, 146, 245);
+    --mainColor-dark: rgb(105, 65, 214);
+    */
 }
+/*
+main #4D4BD5
+bandeau gradian #6967ef #3230bc
+a hover #3230bc
+ptn hover #403eca
+*/
 
 .container {
     padding: 3rem 1.5rem;
@@ -15,12 +26,12 @@ body {
 .bg-dark {
     text-align: center;
     text-shadow: 0 0 4px #aaa;
-    background: linear-gradient(#6967ef, #3230bc);
+    background: linear-gradient(rgb(135, 146, 245), rgb(105, 65, 214));
     box-shadow: 0px 0px 35px black;
 }
 
 strong, h1, a, .titre {
-    color: #4D4BD5
+    color: rgb(116, 127, 226);
 }
 
 #title{
@@ -28,7 +39,7 @@ strong, h1, a, .titre {
 }
 
 a:hover {
-    color: #3230bc;
+    color: rgb(105, 65, 214);
     text-decoration: none;
 }
 
@@ -38,6 +49,13 @@ a:hover {
     border: 2px solid  #333;
     border-radius: 5px;
     box-shadow: 1px 0px 11px #0e0e0e
+}
+
+.menuheader{
+    display: none;
+    color: white;
+    font-size: 12px;
+    margin-top: 10px;
 }
 
 .post{
@@ -55,6 +73,10 @@ a:hover {
     padding-bottom: 30px;
     text-align: left;
     color: red;
+}
+
+.post p{
+    word-wrap: break-word;
 }
 
 .post-titre{
@@ -114,18 +136,25 @@ a:hover {
 
 .comment-btn{
     position: absolute;
-    color: #333; 
-    border-color: #333;
+    color: #444; 
+    border-color: #444;
     right: 7px;
     top: 7px;
     font-size: 12px;
+}
+
+.comment-btn-suppr{
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    font-size: 10px;
 }
 
 .flag-window{
     z-index: 100;
     position: fixed;
     left: calc(50% - 153.62px);
-    top: 53.6px;
+    top: 51px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border-color: red;
@@ -137,7 +166,7 @@ a:hover {
 @keyframes fade {
     0%   {
         opacity: 1;
-        top: 53.6px;
+        top: 51px;
     }
     100% {
         opacity: 0;
@@ -216,23 +245,23 @@ td{
 }
 
 .btn-primary{
-    background-color: #4D4BD5;
-    border-color: #4D4BD5;
+    background-color: rgb(116, 127, 226);
+    border-color: rgb(116, 127, 226);
 }
 
 .btn-primary:hover{
-    background-color: rgb(64, 62, 202);
-    border-color: rgb(64, 62, 202);
+    background-color: rgb(105, 65, 214);
+    border-color: rgb(105, 65, 214);
 }
 
 .btn-outline-primary{
-    border-color: #4D4BD5;
-    color: #4D4BD5;
+    border-color: rgb(116, 127, 226);
+    color: rgb(116, 127, 226);
 }
 
 .btn-outline-primary:hover{
-    background-color: #4D4BD5;
-    border-color: #4D4BD5;
+    background-color: rgb(116, 127, 226);
+    border-color: rgb(116, 127, 226);
 }
 
 .btn-logout{
@@ -259,11 +288,12 @@ td{
 
 .btn-admin{
     font-size: 12px;
+    
 }
 
 .btn-admin-com{
     font-size: 12px;
-    margin-top: 7px;
+    width: 142px;
 }
 
 .editor-admin{
@@ -339,6 +369,41 @@ td{
         margin-left:0px;
         margin-top:5px;
     }
+    
+    .hidden-md-down{
+        display: none;
+    }
+    .adminPostTitle{
+        font-size: 10px;
+    }
+    .comment-content {
+        padding-right: 0px;
+    }
+    .row table, .btn-top-editor{
+        margin-top: 25px;
+    }
+}
+@media (max-width: 767px) {
+    .menuheader{
+        display: inherit;
+    }
+    .hidden-sm-down{
+        display: none;
+    }
+    .btn-logout{
+        position: relative;
+        right: 0px;
+        margin-top: 15px;
+    }
+    td{
+        display: block;
+    }
+}
+
+@media (min-width: 767px) {
+    .navbar-collapse{
+        display: none;
+    }
 }
 
 html {
@@ -358,6 +423,11 @@ footer {
 .menu-mark {
     border-radius: 5px;
     background-color: #1a1a1a;
-    border: 1px solid #222;
+    border: 2px solid #282828;
     padding: 5px;
+}
+
+.adminExpand{
+    color: rgb(105, 65, 214);
+    cursor: pointer;
 }

@@ -1,15 +1,4 @@
-<?php
-
-use App\Entity\Comment;
-use App\Entity\NotifWindow;
-
-
-
-$title = $post->getTitle() . " - Jean Forteroche, Billet simple pour l'Alaska";
-$header = '';
-ob_start();
-
-?> 
+<?php ob_start(); ?> 
 <div class="col-lg-10" style="text-align: left;">
 <div class="box post">
     <div class="row">
@@ -18,25 +7,15 @@ ob_start();
     </div>
     <p class="postContent-single"><?= $post->getContent(); ?></p>
     <p class="comment-header">Commentaires: <?= sizeof($comments) ?></p>
-    <?php
-    foreach ($comments as $comment) {
-        $highlight = '';
-        if (isset($_GET['highlight'])){
-            if ($_GET['highlight'] == $comment->getId()){
-                $highlight = ' box-highlight';
-            }
-        }
-        ?>
-        <div class="comment box<?= $highlight ?>" id="<?= $comment->getId() ?>">
-        <p class="comment-username"> <?= $comment->getUsername() ?> <span class="comment-date"><?= $comment->getDate() ?></span></p>
-        <p class="comment-content"> <?= $comment->getContent() ?> </p>
-        <a class="comment-btn btn btn-outline-danger" href="?p=post.single&params=<?= $post->getId() ?>&flag=<?= $comment->getId() ?>">Signaler</a>
-    </div>
-    <?php
-    }
-    ?>
+    <?php $i = 0; foreach ($comments as $comment) { ?>
+        <div class="comment box" id="<?= $comment->getId() ?>">
+            <p class="comment-username"> <?= $comment->getUsername() ?> <span class="comment-date"><?= $comment->getDate() ?></span></p>
+            <p class="comment-content"> <?= $comment->getContent() ?> </p>
+            <?= $commentButton[$i] ?>       
+        </div>
+    <?php $i++; } ?>
     <div id="commentbox" class="comment box comment-editor">
-        <form action="?p=post.comment_submit&params=<?= $post->getId() ?>&comment_submit=true" method="post">
+        <form action="?p=post.commentSubmit&params=<?= $post->getId() ?>&commentSubmit=true" method="post">
             Nom d'utilisateur : 
             <input class="editor-username" type="text" maxlength="20" name="comment-username">
             <br><br>
@@ -45,10 +24,10 @@ ob_start();
             <input class="editor-submit btn btn-outline-primary" type="submit" value="Commenter">
         </form> 
     </div>
-    
 </div>
 </div>
+<script src="assets/js/ConfirmWin.js"></script>
 <?php
 require('menu.php');
 $content = ob_get_clean();
-require('base.php'); ?>
+require('base.php');

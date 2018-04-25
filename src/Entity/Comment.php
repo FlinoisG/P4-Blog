@@ -50,13 +50,13 @@ class Comment {
 
     public function getDate(){
         $time = strtotime($this->date);
-        setlocale(LC_TIME, "fr_FR"); 
+        setlocale(LC_ALL, 'fr_FR', 'French_France', 'French_Standard');
         return strftime("%A %e %B %Y, %Hh%M", $time);
     }
 
     public function getDateShort(){
         $time = strtotime($this->date);
-        setlocale(LC_TIME, "fr_FR"); 
+        setlocale(LC_ALL, 'fr_FR', 'French_France', 'French_Standard');
         return strftime("%d/%m/%y %H:%M", $time);
     }
 

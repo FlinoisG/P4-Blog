@@ -14,11 +14,11 @@ $header = '<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y
 if($post != null){
     $editorTitle = $post->getTitle();
     $editorContent = $post->getContent();
-    $editorAction = '?p=admin.post_submit&params=' . $post->getId();
+    $editorAction = '?p=admin.postSubmit&params=' . $post->getId();
 } else {
     $editorTitle = '';
     $editorContent = '';
-    $editorAction = '?p=admin.post_submit';
+    $editorAction = '?p=admin.postSubmit';
 }
 ob_start(); 
 ?> 
@@ -48,5 +48,4 @@ ob_start();
 <script src="assets/js/ConfirmWin.js"></script>
 <?php 
 $content = ob_get_clean();
-
-require(dirname(__DIR__).'/base.php'); ?>
+require(dirname(__DIR__).'/base.php');

@@ -18,6 +18,7 @@ class DefaultController {
         } else {
             require('../src/View/Error/500View.php');
         }
+        
     }
 
     /**

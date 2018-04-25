@@ -11,10 +11,6 @@ use PDO;
  */
 class mysqlQuery {
 
-    /**
-     * Undocumented variable
-     * @var string
-     */
     private $host;
     private $dbname;
     private $username;
