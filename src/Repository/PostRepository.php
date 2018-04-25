@@ -11,7 +11,8 @@ use PDO;
 /**
  * Store posts from the database and manage them
  */
-class PostRepository {
+class PostRepository
+{
 
     /**
      * Stores posts from database
@@ -25,11 +26,12 @@ class PostRepository {
      *
      * @return void
      */
-    public function storePosts(){
+    public function storePosts()
+    {
         $this->posts = [];
         $mysqlQuery = new mysqlQuery();
         $postArray = $mysqlQuery->sqlQuery('SELECT * FROM articles ORDER BY date');
-        for ($i=0; $i < sizeof($postArray); $i++){
+        for ($i=0; $i < sizeof($postArray); $i++) {
             $this->posts[$i] = new Post(
                 $postArray[$i]["id"],
                 $postArray[$i]["title"],
@@ -45,16 +47,17 @@ class PostRepository {
      * @param int $id Return id's post. If not specified, return all posts
      * @return object
      */
-    public function getPosts($id = NULL){
-        if ($this->posts == []){
+    public function getPosts($id = null)
+    {
+        if ($this->posts == []) {
             $this->storePosts();
         }
-        if ($id != NULL){
+        if ($id != null) {
             foreach ($this->posts as $post) {
-                if ($post->getId() == $id){
+                if ($post->getId() == $id) {
                     return $post;
                     break;
-               }
+                }
             }
         } else {
             return $this->posts;
@@ -67,10 +70,11 @@ class PostRepository {
      * @param int $id
      * @return void
      */
-    public function deletePost($id){
+    public function deletePost($id)
+    {
         $mysqlQuery = new mysqlQuery();
         $CommentRepository = new CommentRepository();
-        foreach ($CommentRepository->getComments($id) as $comment){
+        foreach ($CommentRepository->getComments($id) as $comment) {
             $mysqlQuery->sqlQuery('DELETE FROM commentaires WHERE id=' . $comment->getId());
         }
         $mysqlQuery->sqlQuery('DELETE FROM articles WHERE id=' . $id);
@@ -82,7 +86,8 @@ class PostRepository {
      * @param object $post
      * @return void
      */
-    public function submitPost($post){
+    public function submitPost($post)
+    {
         $title = str_replace("'", "\'", $post->getTitle());
         $content = str_replace("'", "\'", $post->getContent());
         $mysqlQuery = new mysqlQuery();
@@ -99,11 +104,11 @@ class PostRepository {
      * @param int $id
      * @return void
      */
-    public function updatePost($post, $id){
+    public function updatePost($post, $id)
+    {
         $title = str_replace("'", "\'", $post->getTitle());
         $content = str_replace("'", "\'", $post->getContent());
         $mysqlQuery = new mysqlQuery();
         $mysqlQuery->sqlQuery('UPDATE articles SET title = \''.$title.'\', content = \''.$content.'\' WHERE id='.$id);
     }
-
 }

@@ -9,17 +9,18 @@ use PDO;
 /**
  * used for comunication with the database
  */
-class mysqlQuery {
-
+class mysqlQuery
+{
     private $host;
     private $dbname;
     private $username;
     private $password;
 
     /**
-     * Stores database 
+     * Stores database
      */
-    public function __construct(){
+    public function __construct()
+    {
         $configs = include('mysqlConfig.php');
         $this->host = $configs['host'];
         $this->dbname = $configs['dbname'];
@@ -33,17 +34,15 @@ class mysqlQuery {
      * @param string $query
      * @return mixed
      */
-    public function sqlQuery($query){
-        try
-        {
+    public function sqlQuery($query)
+    {
+        try {
             $bdd = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=utf8', $this->username, $this->password);
-        }
-        catch (Exeption $e)
-        {
+        } catch (Exeption $e) {
             die('Erreur : ' . $e->getMessage());
         }
-        $query = $bdd->query($query);    
-        if(!$query){
+        $query = $bdd->query($query);
+        if (!$query) {
             $DefaultController = new DefaultController();
             die($DefaultController->error('500'));
         }

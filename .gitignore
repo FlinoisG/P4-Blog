@@ -1,2 +1,2 @@
-vendor/
 src/Database/mysqlConfig.php
+php-cs-fixer-v2.phar

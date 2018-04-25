@@ -29,7 +29,7 @@
             ?>
             </ul>
             <?php
-            if (isset($_SESSION['auth'])){
+            if (isset($_SESSION['auth'])) {
                 echo '<a class="btn btn-danger btn-logout" href="?p=post.index&logout=true">Déconnextion</a>';
             }
             ?>

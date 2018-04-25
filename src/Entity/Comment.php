@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-class Comment {
-
+class Comment
+{
     private $id;
     private $username;
     private $content;
@@ -11,7 +11,8 @@ class Comment {
     private $articleId;
     private $flagged;
 
-    public function __construct($id, $username, $content, $date, $articleId, $flagged = 0){
+    public function __construct($id, $username, $content, $date, $articleId, $flagged = 0)
+    {
         $this->setId($id);
         $this->setUsername($username);
         $this->setContent($content);
@@ -20,60 +21,72 @@ class Comment {
         $this->setFlagged($flagged);
     }
     
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setUsername($username){
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setContent($content){
+    public function setContent($content)
+    {
         $this->content = $content;
     }
 
-    public function getContent(){
+    public function getContent()
+    {
         return $this->content;
     }
 
-    public function setDate($date){
+    public function setDate($date)
+    {
         $this->date = $date;
     }
 
-    public function getDate(){
+    public function getDate()
+    {
         $time = strtotime($this->date);
         setlocale(LC_ALL, 'fr_FR', 'French_France', 'French_Standard');
         return strftime("%A %e %B %Y, %Hh%M", $time);
     }
 
-    public function getDateShort(){
+    public function getDateShort()
+    {
         $time = strtotime($this->date);
         setlocale(LC_ALL, 'fr_FR', 'French_France', 'French_Standard');
         return strftime("%d/%m/%y %H:%M", $time);
     }
 
-    public function setArticleId($articleId){
+    public function setArticleId($articleId)
+    {
         $this->articleId = $articleId;
     }
 
-    public function getArticleId(){
+    public function getArticleId()
+    {
         return $this->articleId;
     }
 
-    public function setFlagged($flagged){
+    public function setFlagged($flagged)
+    {
         $this->flagged = $flagged;
     }
 
-    public function getFlagged(){
+    public function getFlagged()
+    {
         return $this->flagged;
     }
-
 }

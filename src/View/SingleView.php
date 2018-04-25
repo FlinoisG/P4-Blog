@@ -7,13 +7,7 @@
     </div>
     <p class="postContent-single"><?= $post->getContent(); ?></p>
     <p class="comment-header">Commentaires: <?= sizeof($comments) ?></p>
-    <?php $i = 0; foreach ($comments as $comment) { ?>
-        <div class="comment box" id="<?= $comment->getId() ?>">
-            <p class="comment-username"> <?= $comment->getUsername() ?> <span class="comment-date"><?= $comment->getDate() ?></span></p>
-            <p class="comment-content"> <?= $comment->getContent() ?> </p>
-            <?= $commentButton[$i] ?>       
-        </div>
-    <?php $i++; } ?>
+    <?= $content ?>
     <div id="commentbox" class="comment box comment-editor">
         <form action="?p=post.commentSubmit&params=<?= $post->getId() ?>&commentSubmit=true" method="post">
             Nom d'utilisateur : 

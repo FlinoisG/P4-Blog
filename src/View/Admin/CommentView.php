@@ -1,6 +1,4 @@
 <?php 
-$title = 'Blog de Jean Forteroche - Administration des commentaires';
-$header = '';
 ob_start();
 ?>
 <div class="col-lg-12">

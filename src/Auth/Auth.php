@@ -9,7 +9,8 @@ use App\Service\GUIDService;
 /**
  * Auth class for authentification related functions
  */
-class Auth {
+class Auth
+{
 
     /**
      * Create session if username and password matches in the database
@@ -18,25 +19,29 @@ class Auth {
      * @param string $password
      * @return void
      */
-    public function login($username, $password){
+    public function login($username, $password)
+    {
         $mysqlQuery = new mysqlQuery();
         $user = $mysqlQuery->sqlQuery("SELECT username, password FROM users WHERE username='".$username."'");
         $path = __DIR__ . '/../Service/PasswordService.php';
         //require($path);
-        if(!function_exists('hash_equals')) {
-            function hash_equals($str1, $str2) {
-                if(strlen($str1) != strlen($str2)) {
+        if (!function_exists('hash_equals')) {
+            function hash_equals($str1, $str2)
+            {
+                if (strlen($str1) != strlen($str2)) {
                     return false;
                 } else {
                     $res = $str1 ^ $str2;
                     $ret = 0;
-                    for($i = strlen($res) - 1; $i >= 0; $i--) $ret |= ord($res[$i]);
+                    for ($i = strlen($res) - 1; $i >= 0; $i--) {
+                        $ret |= ord($res[$i]);
+                    }
                     return !$ret;
                 }
             }
         }
-        if($user != [] && hash_equals($user['0']['password'], crypt($password, $user['0']['password']))) {
-            if(!isset($_SESSION)){
+        if ($user != [] && hash_equals($user['0']['password'], crypt($password, $user['0']['password']))) {
+            if (!isset($_SESSION)) {
                 session_start();
             }
             $_SESSION['auth'] = $user['0']['username'];
@@ -52,10 +57,11 @@ class Auth {
      * @param string $email
      * @return void
      */
-    public function passwordResetLink($email){
+    public function passwordResetLink($email)
+    {
         $mysqlQuery = new mysqlQuery();
         $user = $mysqlQuery->sqlQuery("SELECT * FROM users WHERE email='".$email."'");
-        if($user != []){
+        if ($user != []) {
             $GUIDService = new GUIDService;
             $resetToken = $GUIDService->getGUID();
             $resetExpiration = date("Y-m-d H:i:s", strtotime('+24 hours'));
@@ -84,7 +90,8 @@ class Auth {
      * @param string $password
      * @return void
      */
-    public function resetPassword($user, $password){
+    public function resetPassword($user, $password)
+    {
         require('../src/Service/PasswordService.php');
         $mysqlQuery = new mysqlQuery();
         $query = 'UPDATE users SET 
@@ -94,5 +101,4 @@ class Auth {
             WHERE username=\''.$user.'\'';
         $mysqlQuery->sqlQuery($query);
     }
-
 }
