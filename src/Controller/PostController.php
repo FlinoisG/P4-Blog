@@ -91,7 +91,7 @@ class PostController extends DefaultController
         $CommentRepository = new CommentRepository();
         $comments = $CommentRepository->getComments($id);
         $content = "";
-        $i = 0; 
+        $i = 0;
         
         foreach ($comments as $comment) {
             $content .=

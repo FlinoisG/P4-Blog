@@ -53,7 +53,7 @@ class AdminController extends DefaultController
                 } else {
                     $flaggedComs = '';
                 }
-                $content .= 
+                $content .=
                     '<tr>
                         <td><a class="adminPostTitle" href="?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>
                         <td class="hidden-md-down">' . $post->getDate() . '</td>
@@ -285,7 +285,7 @@ class AdminController extends DefaultController
     }
 
     public function resetPassword()
-    {   
+    {
         $dataController = new DataController();
         $mysqlQuery = new mysqlQuery();
         $token = $_GET['token'];

@@ -6,18 +6,18 @@ use App\Controller\PostController;
 use App\Controller\DefaultController;
 use App\Repository\PostRepository;
 
-if(!isset($_SESSION)) { 
-    session_start(); 
-} 
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-if(isset($_GET['logout'])){
+if (isset($_GET['logout'])) {
     session_destroy();
     header("Refresh:0; url=?p=post.index");
 }
 
-if(isset($_GET['p'])){
+if (isset($_GET['p'])) {
     $routeTemp = explode('.', $_GET['p']);
-    if (count($routeTemp) === 2){
+    if (count($routeTemp) === 2) {
         $routeTemp = [
             "controller" => $routeTemp[0],
             "action" => $routeTemp[1]
@@ -37,9 +37,9 @@ $params = [
     "post" => $postParams
 ];
 $controller = "\\App\\Controller\\" . ucfirst($routeTemp['controller']) . "Controller";
-if (class_exists($controller, true)){
+if (class_exists($controller, true)) {
     $controller = new $controller();
-    if (in_array($routeTemp["action"], get_class_methods($controller))){
+    if (in_array($routeTemp["action"], get_class_methods($controller))) {
         call_user_func_array([$controller, $routeTemp["action"]], $params);
     } else {
         $controller->error('404');

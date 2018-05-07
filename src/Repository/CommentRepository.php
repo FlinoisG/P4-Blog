@@ -31,7 +31,6 @@ class CommentRepository
      */
     public function storeComments($id = null)
     {
-        
         $mysqlQuery = new mysqlQuery();
         $dataController = new DataController();
         $this->comments = [];
