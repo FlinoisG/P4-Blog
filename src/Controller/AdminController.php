@@ -53,22 +53,23 @@ class AdminController extends DefaultController
                 } else {
                     $flaggedComs = '';
                 }
+                $id = $post->getId();
                 $content .=
                     '<tr>
-                        <td><a class="adminPostTitle" href="?p=post.single&params=' . $post->getId() . '">' . $post->getTitle() . '</a></td>
+                        <td><a class="adminPostTitle" href="?p=post.single&params=' . $id . '">' . $post->getTitle() . '</a></td>
                         <td class="hidden-md-down">' . $post->getDate() . '</td>
                         <td>
                             ' . $flaggedComs . '
-                                <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=' . $post->getId() . '">Gérer commentaires</a>
-                                <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=' . $post->getId() . '">Éditer</a>
-                                <a id="SupprBtn' . $post->getId() . '" class="btn btn-danger btn-admin">Supprimer</a>
+                                <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=' . $id . '">Gérer commentaires</a>
+                                <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=' . $id . '">Éditer</a>
+                                <a id="SupprBtn' . $id . '" class="btn btn-danger btn-admin">Supprimer</a>
                         </td>
                     </tr>
                     <script>
-                        var val = "' . $post->getId() . '";
+                        var val = "' . $id . '";
                         document.addEventListener(\'click\', function (event) {
-                            if (event.target.id == \'SupprBtn<?= $post->getId() ?>\'){
-                                CommentWindow.init(\'Confirmer la suppression de l\\\'article\', \'?p=admin.post&delete=<?= $post->getId() ?>\');
+                            if (event.target.id == \'SupprBtn' . $id . '\'){
+                                CommentWindow.init(\'Confirmer la suppression de l\\\'article\', \'?p=admin.post&delete=' . $id . '\');
                             }
                         });
                     </script>';
