@@ -23,16 +23,16 @@ class DefaultController
     }
 
     /**
-     * if $_GET['params'] is not set, die with a 404 error
+     * if $_GET['article'] is not set, die with a 404 error
      *
      * @return void
      */
-    public function checkParams()
+    public function checkArticle()
     {
-        if (!isset($_GET['params'])) {
+        if (!isset($_GET['article'])) {
             die($this->error('404'));
         } else {
-            $id = $_GET['params'];
+            $id = $_GET['article'];
         }
     }
 }

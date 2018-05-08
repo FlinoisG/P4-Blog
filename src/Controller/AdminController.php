@@ -56,12 +56,12 @@ class AdminController extends DefaultController
                 $id = $post->getId();
                 $content .=
                     '<tr>
-                        <td><a class="adminPostTitle" href="?p=post.single&params=' . $id . '">' . $post->getTitle() . '</a></td>
+                        <td><a class="adminPostTitle" href="?p=post.single&article=' . $id . '">' . $post->getTitle() . '</a></td>
                         <td class="hidden-md-down">' . $post->getDate() . '</td>
                         <td>
                             ' . $flaggedComs . '
                                 <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=' . $id . '">Gérer commentaires</a>
-                                <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=' . $id . '">Éditer</a>
+                                <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&article=' . $id . '">Éditer</a>
                                 <a id="SupprBtn' . $id . '" class="btn btn-danger btn-admin">Supprimer</a>
                         </td>
                     </tr>
@@ -91,9 +91,9 @@ class AdminController extends DefaultController
             header("Location: ?p=admin.connection");
             die();
         }
-        if (isset($_GET['params'])) {
+        if (isset($_GET['article'])) {
             $PostRepository = new PostRepository();
-            $post = $PostRepository->getPosts($_GET['params']);
+            $post = $PostRepository->getPosts($_GET['article']);
         } else {
             $post = null;
         }
@@ -112,7 +112,7 @@ class AdminController extends DefaultController
         if ($post != null) {
             $editorTitle = $post->getTitle();
             $editorContent = $post->getContent();
-            $editorAction = '?p=admin.postSubmit&params=' . $post->getId();
+            $editorAction = '?p=admin.postSubmit&article=' . $post->getId();
         } else {
             $editorTitle = '';
             $editorContent = '';
@@ -124,10 +124,10 @@ class AdminController extends DefaultController
     /**
      * Url : ?p=admin.comments&id=*
      *
-     * @param int $params id of the post to comment
+     * @param int $article id of the post to comment
      * @return void
      */
-    public function comments($params)
+    public function comments($article)
     {
         $title = 'Blog de Jean Forteroche - Administration des commentaires';
         $header = '';
@@ -204,6 +204,7 @@ class AdminController extends DefaultController
 
     /**
      * Url : ?p=admin.connection
+     * Admin connection article
      *
      * @return void
      */
@@ -285,6 +286,12 @@ class AdminController extends DefaultController
         header('Location: ?p=admin.post');
     }
 
+    /**
+     * Url : ?p=admin.resetPassword
+     * Password reset page
+     *
+     * @return void
+     */
     public function resetPassword()
     {
         $dataController = new DataController();
@@ -308,6 +315,12 @@ class AdminController extends DefaultController
         }
     }
 
+    /**
+     * Url : ?p=admin.newPassword
+     * Confirmation page for the new password
+     *
+     * @return void
+     */
     public function newPassword()
     {
         if ($_POST == []) {

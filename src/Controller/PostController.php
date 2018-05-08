@@ -32,7 +32,7 @@ class PostController extends DefaultController
         if (sizeof($PostRepository->getPosts()) > 0) {
             foreach ($PostRepository->getPosts() as $post) {
                 if (strlen($post->getContent()) > 500) {
-                    $content = substr(strip_tags($post->getContent()), 0, 500) . '... <a href="?p=post.single&params=' . $post->getId() . '">lire la suite</a>' ;
+                    $content = substr(strip_tags($post->getContent()), 0, 500) . '... <a href="?p=post.single&article=' . $post->getId() . '">lire la suite</a>' ;
                 } else {
                     $content = strip_tags($post->getContent());
                 }
@@ -44,7 +44,7 @@ class PostController extends DefaultController
                 }
                 $posts .= "<div class=\"box post\" style=\"text-align: left;\">
                 <div class=\"row\">
-                    <h2 class=\"post-titre titre col-lg-9\"><a href=\"?p=post.single&params=" . $post->getId() . "\"> " . $post->getTitle() ."</a>
+                    <h2 class=\"post-titre titre col-lg-9\"><a href=\"?p=post.single&article=" . $post->getId() . "\"> " . $post->getTitle() ."</a>
                         <p class=\"index-commentaires\">Commentaires: " . $coms . "</p>
                     </h2>
                     <h6 class=\"post-date col-lg-3\">" . $post->getDate() . "</h6>
@@ -62,7 +62,7 @@ class PostController extends DefaultController
     }
 
     /**
-     * Url : ?p=post.single&params=$id
+     * Url : ?p=post.single&article=$id
      * provide the requested post and its comments
      *
      * @param int $id
@@ -70,7 +70,7 @@ class PostController extends DefaultController
      */
     public function single($id)
     {
-        $this->checkParams();
+        $this->checkArticle();
         $PostRepository = new PostRepository();
         $post = $PostRepository->getPosts($id);
         $title = $post->getTitle() . " - Jean Forteroche, Billet simple pour l'Alaska";
@@ -101,7 +101,7 @@ class PostController extends DefaultController
             if (isset($_SESSION['auth'])) {
                 $content .= '<a id="SupprBtn' . $comment->getId() . '" class="btn btn-danger comment-btn-suppr">Supprimer</a>';
             } else {
-                $content .= '<a class="comment-btn btn btn-outline-danger" href="?p=post.single&params=' . $post->getId() . '&flag=' . $comment->getId() . '">Signaler</a>';
+                $content .= '<a class="comment-btn btn btn-outline-danger" href="?p=post.single&article=' . $post->getId() . '&flag=' . $comment->getId() . '">Signaler</a>';
             }
             $content .= "<script>
             document.addEventListener('click', function (event) {
@@ -130,7 +130,7 @@ class PostController extends DefaultController
     }
 
     /**
-     * Url : ?p=post.commentSubmit&params=id&commentSubmit=true
+     * Url : ?p=post.commentSubmit&article=id&commentSubmit=true
      * submits the comment and refresh the page
      *
      * @return void
@@ -139,7 +139,7 @@ class PostController extends DefaultController
     {
         $PostRepository = new PostRepository();
         $CommentRepository = new CommentRepository();
-        $post = $PostRepository->getPosts($_GET['params']);
+        $post = $PostRepository->getPosts($_GET['article']);
         if (isset($_GET['commentSubmit'])) {
             if (strlen($_POST['comment-username']) <= 2) {
                 $Notif = 'username';
@@ -163,6 +163,6 @@ class PostController extends DefaultController
         } else {
             die($this->error('500'));
         }
-        header('Location: ?p=post.single&params='.$_GET['params'].'&notif='.$Notif.'#commentbox');
+        header('Location: ?p=post.single&article='.$_GET['article'].'&notif='.$Notif.'#commentbox');
     }
 }

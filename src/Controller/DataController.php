@@ -2,8 +2,18 @@
 
 namespace App\Controller;
 
+/**
+ * Miscellaneous function to handle data
+ */
 class DataController extends DefaultController
 {
+
+    /**
+     * Check the provided query if it is safe to enter in the database
+     *
+     * @param string $query
+     * @return string
+     */
     public function queryValidation($query)
     {
         $bannedCommands = [
@@ -33,4 +43,5 @@ class DataController extends DefaultController
             return $query;
         }
     }
+
 }

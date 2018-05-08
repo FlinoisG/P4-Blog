@@ -9,7 +9,7 @@
     <p class="comment-header">Commentaires: <?= sizeof($comments) ?></p>
     <?= $content ?>
     <div id="commentbox" class="comment box comment-editor">
-        <form action="?p=post.commentSubmit&params=<?= $post->getId() ?>&commentSubmit=true" method="post">
+        <form action="?p=post.commentSubmit&article=<?= $post->getId() ?>&commentSubmit=true" method="post">
             Nom d'utilisateur : 
             <input class="editor-username" type="text" maxlength="20" name="comment-username">
             <br><br>
