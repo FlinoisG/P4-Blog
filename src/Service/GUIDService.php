@@ -3,10 +3,16 @@
 namespace App\Service;
 
 /**
- * Various function related to GUID
+ * Functions related to GUID
  */
 class GUIDService
 {
+
+    /**
+     * Generates a GUID token
+     *
+     * @return void
+     */
     public function getGUID()
     {
         mt_srand((double)microtime()*10000);//optional for php 4.2.0 and up.
@@ -19,4 +25,5 @@ class GUIDService
             .substr($charid, 20, 12);
         return $uuid;
     }
+    
 }

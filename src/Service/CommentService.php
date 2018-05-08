@@ -33,4 +33,5 @@ class CommentService
         $mysqlQuery = new mysqlQuery();
         $mysqlQuery->sqlQuery('UPDATE commentaires SET flagged = 0 WHERE id=' . $id);
     }
+    
 }

@@ -74,6 +74,12 @@ class CommentRepository
         )');
     }
 
+    /**
+     * Deletes specified comment
+     *
+     * @param int $id
+     * @return void
+     */
     public function deleteComment($id)
     {
         $mysqlQuery = new mysqlQuery();

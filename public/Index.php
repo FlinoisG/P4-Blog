@@ -30,12 +30,17 @@ if (isset($_GET['p'])) {
     ];
 }
 
-$article = isset($_GET['article']) ? $_GET['article'] : null;
+$getPage = isset($_GET['page']) ? $_GET['page'] : null;
+$postPage = isset($_POST['page']) ? $_POST['page'] : null;
+$page = [
+    "get" => $getPage,
+    "post" => $postPage
+];
 $controller = "\\App\\Controller\\" . ucfirst($routeTemp['controller']) . "Controller";
 if (class_exists($controller, true)) {
     $controller = new $controller();
     if (in_array($routeTemp["action"], get_class_methods($controller))) {
-        call_user_func([$controller, $routeTemp["action"]], $article);
+        call_user_func_array([$controller, $routeTemp["action"]], $page);
     } else {
         $controller->error('404');
     }

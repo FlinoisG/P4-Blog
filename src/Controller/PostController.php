@@ -131,7 +131,7 @@ class PostController extends DefaultController
 
     /**
      * Url : ?p=post.commentSubmit&article=id&commentSubmit=true
-     * submits the comment and refresh the page
+     * submits the comment and refreshes the page
      *
      * @return void
      */
