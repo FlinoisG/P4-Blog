@@ -17,7 +17,32 @@ ob_start();
         </tr>
     </thead>
     <tbody>
-        <?= $content ?>
+        <?php 
+        if (isset($username)) {
+            var_dump($commentId);
+            for ($i = 0; $i < count($username); $i++) { ?>
+                <tr>
+                    <td><?= $username[$i] ?></td>
+                    <?= $contentLength[$i] ?>
+                    <td class="hidden-sm-down"><?= $dateShort[$i] ?></td>
+                    <?= $flagged[$i] ?>
+                    <td>
+                        <a class="btn btn-primary btn-admin-com" href="?p=admin.comments&id=<?= $articleId[$i] ?>&deleteFlag=<?= $commentId[$i] ?>">Enlever signalements</a>
+                        <a id="SupprBtn<?= $commentId[$i] ?>" class="btn btn-danger btn-admin-com">Supprimer</a>
+                    </td>
+                </tr>
+                <script type="text/javascript">
+                    var commentId = "<?= $commentId[$i] ?>";
+                    var articleId = "<?= $articleId[$i] ?>";
+                    var commentContentShort = "<?= $commentContentShort[$i] ?>";
+                    var commentContentExpanded = "<?= $commentContentExpanded[$i] ?>";
+                </script>
+                <script language="JavaScript" src="assets/js/ShortTextButton.js" type="text/javascript"></script>
+        <?php 
+            }
+        } else { ?>
+            <td colspan="5">Aucun commentaire</td> <?php
+        } ?>
     </tbody>
 </table>
 <script src="assets/js/ConfirmWin.js"></script>

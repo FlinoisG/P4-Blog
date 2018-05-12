@@ -41,31 +41,29 @@ class AdminController extends DefaultController
         }
         $content = '';
         if (sizeof($PostRepository->getPosts()) > 0) {
+            $i = 0;
+            $id;
+            $title;
+            $date;
+            $flaggedComs;
             foreach ($PostRepository->getPosts() as $post) {
-                $flaggedComs = 0;
+                $title[$i] = $post->getTitle();
+                $date[$i] = $post->getDate();
+                $id[$i] = $post->getId();
+                $flaggedComs[$i] = 0;
                 foreach ($CommentRepository->getComments($post->getId()) as $comment) {
                     if ($comment->getFlagged() != 0) {
-                        $flaggedComs = $flaggedComs + $comment->getFlagged();
+                        $flaggedComs[$i] = $flaggedComs[$i] + $comment->getFlagged();
                     }
                 }
-                if ($flaggedComs != 0) {
-                    $flaggedComs = '<span class="flag-alert">Attention : ' . $flaggedComs . ' signalement</span>';
+                if ($flaggedComs[$i] != 0) {
+                    $flaggedComs[$i] = '<span class="flag-alert">Attention : ' . $flaggedComs[$i] . ' signalement</span>';
                 } else {
-                    $flaggedComs = '';
+                    $flaggedComs[$i] = '';
                 }
-                $id = $post->getId();
-                $content .=
-                    '<tr>
-                        <td><a class="adminPostTitle" href="?p=post.single&article=' . $id . '">' . $post->getTitle() . '</a></td>
-                        <td class="hidden-md-down">' . $post->getDate() . '</td>
-                        <td>
-                            ' . $flaggedComs . '
-                                <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=' . $id . '">Gérer commentaires</a>
-                                <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&article=' . $id . '">Éditer</a>
-                                <a id="SupprBtn' . $id . '" class="btn btn-danger btn-admin">Supprimer</a>
-                        </td>
-                    </tr>
-                    <script>
+                ;
+                $script[$i] .=
+                    '<script>
                         var val = "' . $id . '";
                         document.addEventListener(\'click\', function (event) {
                             if (event.target.id == \'SupprBtn' . $id . '\'){
@@ -74,8 +72,9 @@ class AdminController extends DefaultController
                         });
                     </script>';
             }
+            $extra = '';
         } else {
-            $content = '<td colspan="4">Aucun article</td>';
+            $extra = '<td colspan="4">Aucun article</td>';
         }
         require('../src/View/Admin/PostView.php');
     }
@@ -151,53 +150,38 @@ class AdminController extends DefaultController
             $id = $_GET['id'];
         }
         if (sizeof($CommentRepository->getComments()) > 0) {
-            $content = '';
+            $i = 0;
+            $flagged;
+            $username;
+            $content;
+            $dateShort;
+            $articleId;
             foreach ($CommentRepository->getComments($id) as $comment) {
-                $commentContent = str_replace('"', '\"', $comment->getContent());
-                $commentContentShort = substr($commentContent, 0, 170) . '... <span class="adminExpand" id="adminExpand' . $comment->getId() . '">lire la suite</span>' ;
-                $commentContentExpanded = $commentContent . "<span class=\"adminExpand\" id=\"adminExpand" . $comment->getId() . "\"> Lire moins</span>";
-                $flagged;
+                $commentId[$i] = $comment->getId();
+                $commentContent[$i] = str_replace('"', '\"', $comment->getContent());
+                $commentContentShort[$i] = substr($commentContent[$i], 0, 170) . '... <span class="adminExpand" id="adminExpand' . $commentId[$i] . '">lire la suite</span>' ;
+                $commentContentExpanded[$i] = $commentContent[$i] . "<span class=\"adminExpand\" id=\"adminExpand" . $commentId[$i] . "\"> Lire moins</span>";
+                $username[$i] = $comment->getUsername();
+                $content[$i] = $comment->getContent();
+                $dateShort[$i] = $comment->getDateShort();
+                $articleId[$i] = $comment->getArticleId();
                 if ($comment->getFlagged() != 0) {
-                    $flagged = '<td class="hidden-sm-down" style="color: red;">' . $comment->getFlagged() . '</td>';
+                    $flagged[$i] = '<td class="hidden-sm-down" style="color: red;">' . $comment->getFlagged() . '</td>';
                 } else {
-                    $flagged = '<td class="hidden-sm-down">0</td>';
+                    $flagged[$i] = '<td class="hidden-sm-down">0</td>';
                 }
-                $content .= '<tr>
-                    <td>' . $comment->getUsername() . '</td>';
-                if (strlen($comment->getContent()) > 170) {
-                    $content .= '<td id="content' . $comment->getId() . '">' . $commentContentShort . '</td>';
+                if (strlen($content[$i]) > 170) {
+                    $contentLength[$i] = '<td id="content'.$commentId[$i].'">'.$commentContentShort[$i].'</td>';
                 } else {
-                    $content .= '<td id="content' . $comment->getId() . '">' . $commentContent . '</td>';
+                    $contentLength[$i] = '<td id="content'.$commentId[$i].'">'.$commentContent[$i].'</td>';
                 }
-                $content .= '<td class="hidden-sm-down">' . $comment->getDateShort() . '</td>';
-                $content .= $flagged;
-                $content .= '<td>
-                            <a class="btn btn-primary btn-admin-com" href="?p=admin.comments&id=' . $comment->getArticleId() . '&deleteFlag=' . $comment->getId() . '">Enlever signalements</a>
-                            <a id="SupprBtn' . $comment->getId() . '" class="btn btn-danger btn-admin-com">Supprimer</a>
-                    </td>
-                </tr>';
-                $commentContentExpanded = str_replace('"', '\"', $commentContentExpanded);
-                $commentContentShort = str_replace('"', '\"', $commentContentShort);
-                $content .= "<script>
-                    var expanded".$comment->getId()." = false;
-                    document.addEventListener('click', function (event) {
-                        if (event.target.id == 'SupprBtn".$comment->getId()."'){
-                            CommentWindow.init('Confirmer la suppression du commentaire', '?p=admin.comments&id=' + \"".$comment->getArticleId()."\" + '&delete=".$comment->getId()."');
-                        }
-                        if (event.target.id == 'adminExpand".$comment->getId()."'){                            
-                            if (expanded".$comment->getId()."){
-                                document.getElementById('content".$comment->getId()."').innerHTML = \"".$commentContentShort."\";
-                                expanded".$comment->getId()." = false;
-                            } else {
-                                document.getElementById('content".$comment->getId()."').innerHTML = \"".$commentContentExpanded."\";
-                                expanded".$comment->getId()." = true;
-                            }
-                        }
-                    });
-                </script>";
+                $commentContentExpanded[$i] = str_replace('"', '\"', $commentContentExpanded[$i]);
+                $commentContentShort[$i] = str_replace('"', '\"', $commentContentShort[$i]);
+                $i++;
             }
+            $extra = '';
         } else {
-            $content = '<td colspan="5">Aucun commentaire</td>';
+            $extra = '<td colspan="5">Aucun commentaire</td>';
         }
         require('../src/View/Admin/CommentView.php');
     }
@@ -212,42 +196,22 @@ class AdminController extends DefaultController
     {
         $title = "Blog de Jean Forteroche - Connection";
         $header = '';
-        if (isset($_GET['forgottenPassword'])) {
-            $content = "
-            <form action=\"?p=admin.connection&link=sent\" method=\"post\">
-                <div class=\"form-group\">
-                    <label for=\"loginUsername\">Adresse mail</label>
-                    <input class=\"form-control login-form\" type=\"email\" id=\"loginEmail\" name=\"email\" placeholder=\"Adresse mail\" required>
-                </div>
-                <button type=\"submit\" class=\"btn btn-primary\">Réinitialiser mon mot de passe</button>
-            </form>
-            <script src=\"assets/js/ConfirmPasswordReset.js\"></script>
-            ";
+        if (isset($_GET['link'])) {
+            $Auth = new Auth();
+            $token = $Auth->passwordResetLink(htmlspecialchars($_POST['email']));
+            $link = "<br><p>Un email contenant un lien vous permettant de réinitialiser votre mot de passe vous à été envoyé.<p>
+                    <p>Le lien ne restera actif que 24 heurs.</p>";
         } else {
-            if (isset($_GET['link'])) {
-                $Auth = new Auth();
-                $token = $Auth->passwordResetLink(htmlspetialchars($_POST['email']));
-                $link = "<br><p>Un email contenant un lien vous permettant de réinitialiser votre mot de passe vous à été envoyé.<p>
-                        <p>Le lien ne restera actif que 24 heurs.</p>";
-            } else {
-                $link = "<a href=\"?p=admin.connection&forgottenPassword=true\">Mot de passe oublié ?</a>";
-            }
-            $content = "
-            <form action=\"?p=admin.post&login=true\" method=\"post\">
-                <div class=\"form-group\">
-                    <label for=\"loginUsername\">Nom du compte</label>
-                    <input class=\"form-control login-form\" type=\"text\" id=\"loginUsername\" name=\"username\" placeholder=\"Nom du compte\">
-                </div>
-                <div class=\"form-group\">
-                    <label for=\"loginPassword\">Mot de passe</label>
-                    <input class=\"form-control login-form\" type=\"password\" id=\"loginPassword\" name=\"password\" placeholder=\"Mot de passe\">
-                    ".$link."
-                </div>
-                <button type=\"submit\" class=\"btn btn-primary\">Envoyer</button>
-            </form>
-            ";
+            $link = "<a href=\"?p=admin.passwordRecovery\">Mot de passe oublié ?</a>";
         }
-        require('../src/View/EmptyView.php');
+        require('../src/View/ConnectionView.php');
+    }
+
+    public function passwordRecovery()
+    {
+        $title = "Blog de Jean Forteroche - Connection";
+        $header = '';
+        require('../src/View/PasswordRecoveryView.php');
     }
 
     /**

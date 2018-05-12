@@ -90,27 +90,20 @@ class PostController extends DefaultController
         }
         $CommentRepository = new CommentRepository();
         $comments = $CommentRepository->getComments($id);
-        $content = "";
         $i = 0;
-        
         foreach ($comments as $comment) {
-            $content .=
-                "<div class=\"comment box\" id=\"" . $comment->getId() . "\">
-                    <p class=\"comment-username\"> " . $comment->getUsername() . " <span class=\"comment-date\">" . $comment->getDate() . "</span></p>
-                    <p class=\"comment-content\"> " . htmlspecialchars_decode($comment->getContent()) . " </p>";
             if (isset($_SESSION['auth'])) {
-                $content .= '<a id="SupprBtn' . $comment->getId() . '" class="btn btn-danger comment-btn-suppr">Supprimer</a>';
+                $singleButton = '<a id="SupprBtn' . $comment->getId() . '" class="btn btn-danger comment-btn-suppr">Supprimer</a>';
             } else {
-                $content .= '<a class="comment-btn btn btn-outline-danger" href="?p=post.single&article=' . $post->getId() . '&flag=' . $comment->getId() . '">Signaler</a>';
+                $singleButton = '<a class="comment-btn btn btn-outline-danger" href="?p=post.single&article=' . $post->getId() . '&flag=' . $comment->getId() . '">Signaler</a>';
             }
-            $content .= "<script>
+            $script = "<script>
             document.addEventListener('click', function (event) {
                 if (event.target.id == 'SupprBtn" . $comment->getId() . "'){
                     CommentWindow.init('Confirmer la suppression du commentaire', '?p=admin.comments&id=" . $comment->getArticleId() . "&delete=" . $comment->getId() . "');
                 }
             });
-            </script>
-            </div>";
+            </script>";
         }
         require('../src/View/SingleView.php');
         if (isset($_GET['flag'])) {
@@ -131,7 +124,7 @@ class PostController extends DefaultController
 
     /**
      * Url : ?p=post.commentSubmit&article=id&commentSubmit=true
-     * submits the comment and refreshes the page
+     * submits the comment to PostRepository and refreshes the page
      *
      * @return void
      */
@@ -163,6 +156,6 @@ class PostController extends DefaultController
         } else {
             die($this->error('500'));
         }
-        header('Location: ?p=post.single&article='.$_GET['article'].'&notif='.$Notif.'#commentbox');
+        header('Location: ?p=post.single&article=' . $_GET['article'] . '&notif=' . $Notif . '#commentbox');
     }
 }

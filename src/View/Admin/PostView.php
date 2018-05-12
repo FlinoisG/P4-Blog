@@ -17,6 +17,19 @@ ob_start();
         </tr>
     </thead>
     <tbody>
+        <?php for ($i = 0; $i < count($username); $i++) { ?>
+            <tr>
+                <td><a class="adminPostTitle" href="?p=post.single&article=<?= $id[$i] ?>"><?= $title[$i] ?></a></td>
+                <td class="hidden-md-down"><?= $date[$i] ?></td>
+                <td>
+                    <?= $flaggedComs[$i] ?>
+                        <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=<?= $id[$i] ?>">Gérer commentaires</a>
+                        <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&article=<?= $id[$i] ?>">Éditer</a>
+                        <a id="SupprBtn<?= $id[$i] ?>" class="btn btn-danger btn-admin">Supprimer</a>
+                </td>
+            </tr>
+            <?= $script ?>
+        <?php } ?>
         <?= $content ?>
     </tbody>
 </table>
