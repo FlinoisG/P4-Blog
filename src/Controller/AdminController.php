@@ -39,17 +39,15 @@ class AdminController extends DefaultController
         if (isset($_GET['delete'])) {
             $PostRepository->deletePost($_GET['delete']);
         }
-        $content = '';
         if (sizeof($PostRepository->getPosts()) > 0) {
             $i = 0;
-            $id;
-            $title;
-            $date;
-            $flaggedComs;
+            $postId;
+            $postTitle;
+            $postDate;
             foreach ($PostRepository->getPosts() as $post) {
-                $title[$i] = $post->getTitle();
-                $date[$i] = $post->getDate();
-                $id[$i] = $post->getId();
+                $postId[$i] = $post->getId();
+                $postTitle[$i] = $post->getTitle();
+                $postDate[$i] = $post->getDate();
                 $flaggedComs[$i] = 0;
                 foreach ($CommentRepository->getComments($post->getId()) as $comment) {
                     if ($comment->getFlagged() != 0) {
@@ -57,20 +55,11 @@ class AdminController extends DefaultController
                     }
                 }
                 if ($flaggedComs[$i] != 0) {
-                    $flaggedComs[$i] = '<span class="flag-alert">Attention : ' . $flaggedComs[$i] . ' signalement</span>';
+                    $flaggedComs[$i] = '<span class="flag-alert">Attention : ' . $flaggedComs . ' signalement</span>';
                 } else {
                     $flaggedComs[$i] = '';
                 }
-                ;
-                $script[$i] .=
-                    '<script>
-                        var val = "' . $id . '";
-                        document.addEventListener(\'click\', function (event) {
-                            if (event.target.id == \'SupprBtn' . $id . '\'){
-                                CommentWindow.init(\'Confirmer la suppression de l\\\'article\', \'?p=admin.post&delete=' . $id . '\');
-                            }
-                        });
-                    </script>';
+                $i++;
             }
             $extra = '';
         } else {
@@ -90,9 +79,9 @@ class AdminController extends DefaultController
             header("Location: ?p=admin.connection");
             die();
         }
-        if (isset($_GET['article'])) {
+        if (isset($_GET['params'])) {
             $PostRepository = new PostRepository();
-            $post = $PostRepository->getPosts($_GET['article']);
+            $post = $PostRepository->getPosts($_GET['params']);
         } else {
             $post = null;
         }
@@ -111,7 +100,7 @@ class AdminController extends DefaultController
         if ($post != null) {
             $editorTitle = $post->getTitle();
             $editorContent = $post->getContent();
-            $editorAction = '?p=admin.postSubmit&article=' . $post->getId();
+            $editorAction = '?p=admin.postSubmit&params=' . $post->getId();
         } else {
             $editorTitle = '';
             $editorContent = '';
@@ -123,10 +112,10 @@ class AdminController extends DefaultController
     /**
      * Url : ?p=admin.comments&id=*
      *
-     * @param int $article id of the post to comment
+     * @param int $params id of the post to comment
      * @return void
      */
-    public function comments($article)
+    public function comments($params)
     {
         $title = 'Blog de Jean Forteroche - Administration des commentaires';
         $header = '';
@@ -151,34 +140,41 @@ class AdminController extends DefaultController
         }
         if (sizeof($CommentRepository->getComments()) > 0) {
             $i = 0;
-            $flagged;
-            $username;
-            $content;
-            $dateShort;
-            $articleId;
+            $flagged = [0];
+            $content = [0];
             foreach ($CommentRepository->getComments($id) as $comment) {
+                $commentUsername[$i] = $comment->getUsername();
+                $commentDate[$i] = $comment->getDateShort();
+                $commentArticleId[$i] = $comment->getArticleId();
                 $commentId[$i] = $comment->getId();
                 $commentContent[$i] = str_replace('"', '\"', $comment->getContent());
-                $commentContentShort[$i] = substr($commentContent[$i], 0, 170) . '... <span class="adminExpand" id="adminExpand' . $commentId[$i] . '">lire la suite</span>' ;
-                $commentContentExpanded[$i] = $commentContent[$i] . "<span class=\"adminExpand\" id=\"adminExpand" . $commentId[$i] . "\"> Lire moins</span>";
-                $username[$i] = $comment->getUsername();
-                $content[$i] = $comment->getContent();
-                $dateShort[$i] = $comment->getDateShort();
-                $articleId[$i] = $comment->getArticleId();
+                $commentContentShort[$i] = substr($commentContent[$i], 0, 170) . '... <span class="adminExpand short" id="adminExpand' . $commentId[$i] . '">lire la suite</span>' ;
+                $commentContentExpanded[$i] = $commentContent[$i] . "<span class=\"adminExpand expanded\" id=\"adminExpand" . $commentId[$i] . "\"> Lire moins</span>";
+                
                 if ($comment->getFlagged() != 0) {
                     $flagged[$i] = '<td class="hidden-sm-down" style="color: red;">' . $comment->getFlagged() . '</td>';
                 } else {
                     $flagged[$i] = '<td class="hidden-sm-down">0</td>';
                 }
-                if (strlen($content[$i]) > 170) {
-                    $contentLength[$i] = '<td id="content'.$commentId[$i].'">'.$commentContentShort[$i].'</td>';
+                $commentContentExpanded[$i] = str_replace('&amp;quot;', '"', $commentContentExpanded[$i]);
+                $commentContentShort[$i] = str_replace('&amp;quot;', '"', $commentContentShort[$i]);
+                if (strlen($comment->getContent()) > 170) {
+                    $content[$i] = '<td id="content' . $commentId[$i] . '">' . $commentContentShort[$i] . '</td>';
                 } else {
-                    $contentLength[$i] = '<td id="content'.$commentId[$i].'">'.$commentContent[$i].'</td>';
+                    $content[$i] = '<td id="content' . $commentId[$i] . '">' . $commentContent[$i] . '</td>';
                 }
                 $commentContentExpanded[$i] = str_replace('"', '\"', $commentContentExpanded[$i]);
                 $commentContentShort[$i] = str_replace('"', '\"', $commentContentShort[$i]);
+                
+                
                 $i++;
             }
+            $script = "<script>
+                var commentId = " . json_encode($commentId) . ";
+                var commentContent = " . json_encode($commentContent) . ";
+                var commentContentShort = " . json_encode($commentContentShort) . ";
+                var commentContentExpanded = " . json_encode($commentContentExpanded) . ";
+            </script>";
             $extra = '';
         } else {
             $extra = '<td colspan="5">Aucun commentaire</td>';
@@ -188,7 +184,6 @@ class AdminController extends DefaultController
 
     /**
      * Url : ?p=admin.connection
-     * Admin connection article
      *
      * @return void
      */
@@ -202,16 +197,21 @@ class AdminController extends DefaultController
             $link = "<br><p>Un email contenant un lien vous permettant de réinitialiser votre mot de passe vous à été envoyé.<p>
                     <p>Le lien ne restera actif que 24 heurs.</p>";
         } else {
-            $link = "<a href=\"?p=admin.passwordRecovery\">Mot de passe oublié ?</a>";
+            $link = "<a href=\"?p=admin.forgottenPassword\">Mot de passe oublié ?</a>";
         }
-        require('../src/View/ConnectionView.php');
+        require('../src/View/connectionView.php');
     }
 
-    public function passwordRecovery()
+    /**
+     * Url : ?p=admin.forgottenPassword
+     *
+     * @return void
+     */
+    public function forgottenPassword()
     {
         $title = "Blog de Jean Forteroche - Connection";
         $header = '';
-        require('../src/View/PasswordRecoveryView.php');
+        require('../src/View/forgottenPasswordView.php');
     }
 
     /**
@@ -250,12 +250,6 @@ class AdminController extends DefaultController
         header('Location: ?p=admin.post');
     }
 
-    /**
-     * Url : ?p=admin.resetPassword
-     * Password reset page
-     *
-     * @return void
-     */
     public function resetPassword()
     {
         $dataController = new DataController();
@@ -279,12 +273,6 @@ class AdminController extends DefaultController
         }
     }
 
-    /**
-     * Url : ?p=admin.newPassword
-     * Confirmation page for the new password
-     *
-     * @return void
-     */
     public function newPassword()
     {
         if ($_POST == []) {

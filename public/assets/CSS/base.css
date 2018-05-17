@@ -223,6 +223,7 @@ tr{
 
 td{
     overflow-wrap: break-word;
+    justify-content: center
 }
 
 .btn-top-editor{

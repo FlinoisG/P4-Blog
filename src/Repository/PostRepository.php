@@ -97,7 +97,6 @@ class PostRepository
             \'' . date("Y-m-d H:i:s") . '\'
         )');
     }
-    
     /**
      * Update a post in the databse at specified id
      *

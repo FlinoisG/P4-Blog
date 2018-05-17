@@ -17,23 +17,22 @@ ob_start();
         </tr>
     </thead>
     <tbody>
-        <?php for ($i = 0; $i < count($username); $i++) { ?>
+        <?php for ($i = 0; $i < sizeof($PostRepository->getPosts()); $i++){ ?>
             <tr>
-                <td><a class="adminPostTitle" href="?p=post.single&article=<?= $id[$i] ?>"><?= $title[$i] ?></a></td>
-                <td class="hidden-md-down"><?= $date[$i] ?></td>
+                <td><a class="adminPostTitle" href="?p=post.single&params=<?= $postId[$i] ?>"><?= $postTitle[$i] ?></a></td>
+                <td class="hidden-md-down"><?= $postDate[$i] ?></td>
                 <td>
                     <?= $flaggedComs[$i] ?>
-                        <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=<?= $id[$i] ?>">Gérer commentaires</a>
-                        <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&article=<?= $id[$i] ?>">Éditer</a>
-                        <a id="SupprBtn<?= $id[$i] ?>" class="btn btn-danger btn-admin">Supprimer</a>
+                        <a class="btn btn-primary btn-admin" href="?p=admin.comments&id=<?= $postId[$i] ?>">Gérer commentaires</a>
+                        <a class="btn btn-primary btn-admin" href="?p=admin.posteditor&params=<?= $postId[$i] ?>">Éditer</a>
+                        <a id="SupprBtn<?= $postId[$i] ?>" class="btn btn-danger btn-admin">Supprimer</a>
                 </td>
             </tr>
-            <?= $script ?>
         <?php } ?>
-        <?= $content ?>
+        <?= $extra ?>
     </tbody>
 </table>
 <script src="assets/js/ConfirmWin.js"></script>
-
+<script src="assets/js/AdminPostButtons.js"></script>
 <?php $content = ob_get_clean();
 require(dirname(__DIR__).'/base.php');

@@ -34,7 +34,7 @@ class CommentRepository
         $mysqlQuery = new mysqlQuery();
         $dataController = new DataController();
         $this->comments = [];
-        $id = $dataController->queryValidation($id);
+        $id = $dataController->dataValidation($id);
         if ($id == null) {
             $arg = '';
         } else {
@@ -64,7 +64,7 @@ class CommentRepository
     {
         $mysqlQuery = new mysqlQuery();
         $dataController = new DataController();
-        $content = $dataController->queryValidation($comment->getContent());
+        $content = $dataController->dataValidation($comment->getContent());
         
         $mysqlQuery->sqlQuery('INSERT INTO commentaires(pseudo, content, article_id, date) VALUES(
             \'' . htmlspecialchars($comment->getUsername()) . '\',
@@ -74,17 +74,11 @@ class CommentRepository
         )');
     }
 
-    /**
-     * Deletes specified comment
-     *
-     * @param int $id
-     * @return void
-     */
     public function deleteComment($id)
     {
         $mysqlQuery = new mysqlQuery();
         $dataController = new DataController();
-        $id = $dataController->queryValidation($id);
+        $id = $dataController->dataValidation($id);
         $mysqlQuery->sqlQuery('DELETE FROM commentaires WHERE id=' . $id);
     }
 }

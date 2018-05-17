@@ -24,7 +24,7 @@
             <?php
             $PostRepository = new App\Repository\PostRepository;
             foreach ($PostRepository->getPosts() as $post) {
-                echo '<li><a class="menuheader hidden-md-up" href="?p=post.single&article='.$post->getId().'">'.$post->getTitle().'</a></li>';
+                echo '<li><a class="menuheader hidden-md-up" href="?p=post.single&params='.$post->getId().'">'.$post->getTitle().'</a></li>';
             }
             ?>
             </ul>

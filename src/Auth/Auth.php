@@ -52,7 +52,8 @@ class Auth
     }
 
     /**
-     * Undocumented function
+     * Generates a GUID as a token for reseting the password, then generates a password reset link and
+     * send it to the admin 
      *
      * @param string $email
      * @return void
@@ -69,8 +70,8 @@ class Auth
             $to      = $_POST['email'];
             $subject = 'le sujet';
             $message = 'Lien : http://gauthier.tuby.com/P4/public/?p=admin.resetPassword&token=' . $resetToken;
-            $headers = 'From: webmaster@example.com' . "\r\n" .
-            'Reply-To: webmaster@example.com' . "\r\n" .
+            $headers = 'From: webmaster@forterocheblog.com' . "\r\n" .
+            'Reply-To: webmaster@forterocheblog.com' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
             mail($to, $subject, $message, $headers);
             return true;
@@ -84,7 +85,7 @@ class Auth
     }
 
     /**
-     * Undocumented function
+     * Replace the current password with the one provided in the database
      *
      * @param string $user
      * @param string $password
